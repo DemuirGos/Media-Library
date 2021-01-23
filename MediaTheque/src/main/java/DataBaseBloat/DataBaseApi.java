@@ -13,7 +13,6 @@ public class DataBaseApi {
 
     private Connection Connect() throws ClassNotFoundException, SQLException {
         Class.forName(JdbcDriver);
-        System.out.println("Connecting to database...");
         return DriverManager.getConnection(DbLocation,User,Password);
     }
 
@@ -49,16 +48,16 @@ public class DataBaseApi {
 
     public void remove(IMedia element){
         runQuery("DELETE FROM Medias WHERE "                  + 
-                    "Name = " + element.getName()             + 
-                    "Type = " +  element.getType().toString() +
-                    "Data = " + element.getData()             );
+                    "Name = " + element.getName()  + " AND "  + 
+                    "Data = " + element.getData()  + " AND "  +
+                    "Type = " +  element.getType().toString() );
     } 
 
     public List<IMedia> Select(IMedia element){
         return  runQuery("SELECT Name, Type, Data FROM Medias WHERE " + 
-                             "Name = " + element.getName()            + 
-                             "Type =" +  element.getType().toString() +
-                             "Data = " + element.getData()            );
+                             "Name = " + element.getName() + " AND "  + 
+                             "Data = " + element.getData() + " AND "  +
+                             "Type =" +  element.getType().toString() );
     } 
 
     public List<IMedia> SelectAll(){
