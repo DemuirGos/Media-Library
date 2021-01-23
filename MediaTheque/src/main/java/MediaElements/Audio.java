@@ -1,7 +1,13 @@
 package MediaElements;
 
 public class Audio extends IMedia {
-    Audio(String name,String type,String data){
+    Audio () {}
+
+    Audio (MediaType type) {
+        super(type);
+    }
+
+    Audio(String name,MediaType type,String data){
         super(name,type,data);
     }
 }

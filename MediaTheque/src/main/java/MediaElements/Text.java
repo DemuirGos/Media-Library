@@ -1,7 +1,13 @@
 package MediaElements;
 
 public class Text extends IMedia{
-    Text(String name,String type,String data){
+    Text () {}
+
+    Text (MediaType type) {
+        super(type);
+    }
+
+    Text(String name, MediaType type,String data){
         super(name,type,data);
     }
 }

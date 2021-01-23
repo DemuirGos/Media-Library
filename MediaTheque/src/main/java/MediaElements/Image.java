@@ -1,8 +1,14 @@
 package MediaElements;
 
-public class Image extends IMedia{
-    Image(String name,String type,String data){
-        super(name,type,data);
+public class Image extends IMedia {
+    Image () {}
+
+    Image(MediaType type) {
+        super(type);
+    }
+
+    Image(String name,MediaType type,String data){
+        super(name, type, data);
     }
 }
     

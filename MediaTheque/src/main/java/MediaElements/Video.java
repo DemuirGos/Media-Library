@@ -1,7 +1,13 @@
 package MediaElements;
 
 public class Video extends IMedia{
-    Video(String name,String type,String data){
+    Video () {}
+
+    Video (MediaType type) {
+        super(type);
+    }
+
+    Video(String name, MediaType type,String data){
         super(name,type,data);
     }
 }
