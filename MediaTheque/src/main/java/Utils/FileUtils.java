@@ -1,7 +1,6 @@
-package FileUtils;
+package Utils;
 
 import java.io.*;
-
 public class FileUtils {
     public static String readFile(String fileName) {
         File f = new File(fileName);
@@ -18,4 +17,6 @@ public class FileUtils {
 
         return strBld.toString();
     }
+
+
 }

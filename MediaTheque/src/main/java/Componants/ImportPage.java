@@ -1,8 +1,10 @@
 package Componants;
 
-import FileUtils.FileUtils;
+import DataBaseBloat.DataBaseApi;
 import MediaElements.IMedia;
 import MediaElements.MediaType;
+import Utils.FileUtils;
+import Utils.StringUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,12 +26,14 @@ public class ImportPage extends JFrame{
     private JLabel label;
     private JTextField textField;
     private JButton saveButton;
+    private String path;
 
-    ImportPage (String name) {
+    ImportPage (String path) {
+        this.path = path;
         SpringLayout layout = new SpringLayout();
 
         label = new JLabel("Nom Fichier: ");
-        textField =  new JTextField(name);
+        textField =  new JTextField(path);
         saveButton = new JButton("Sauvegarder");
 
         layout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, this);
@@ -43,7 +47,7 @@ public class ImportPage extends JFrame{
         setSaveButton();
 
         this.setLayout(layout);
-        this.setSize(300,200);
+        this.setSize(200,200);
         this.add(saveButton);
         this.add(label);
         this.add(textField);
@@ -53,8 +57,7 @@ public class ImportPage extends JFrame{
     public void setSaveButton () {
         saveButton.addActionListener(e -> {
             String fileName = textField.getText();
-            IMedia md = new IMedia(fileName, parseFileExt(fileName), FileUtils.readFile(fileName));
-            System.out.println(md);
+            DataBaseApi.insert(new IMedia(fileName, parseFileExt(fileName), StringUtils.encode(FileUtils.readFile(fileName))));
         });
     }
 
@@ -78,23 +81,4 @@ public class ImportPage extends JFrame{
         return null;
     }
 
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        JButton openImport = new JButton("import");
-        JFileChooser chooser = new JFileChooser("$HOME");
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setSize(800,600);
-        frame.add(openImport);
-
-        openImport.addActionListener(e -> {
-            chooser.showOpenDialog(null);
-        });
-
-        chooser.addActionListener(e -> {
-            new ImportPage(chooser.getSelectedFile().getAbsolutePath());
-        });
-       //frame.add(new ImportPage(openImport.getText()));
-        frame.setVisible(true);
-    }
 }
