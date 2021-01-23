@@ -3,20 +3,22 @@ package DataBaseBloat;
 import java.sql.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.*;
+
 import MediaElements.*;
 
 public class DataBaseApi {
-    private String JdbcDriver = "com.mysql.jdbc.Driver";  
-    private String DbLocation = "jdbc:mysql://localhost/EMP";
-    private String User = "usernamse";
-    private String Password = "password";
+    private static String JdbcDriver = "com.mysql.jdbc.Driver";  
+    private static String DbLocation = "jdbc:mysql://localhost/EMP";
+    private static String User = "usernamse";
+    private static String Password = "password";
 
-    private Connection Connect() throws ClassNotFoundException, SQLException {
+    private static Connection Connect() throws ClassNotFoundException, SQLException {
         Class.forName(JdbcDriver);
         return DriverManager.getConnection(DbLocation,User,Password);
     }
 
-    private List<IMedia> runQuery(String Query){
+    private static List<IMedia> runQuery(String Query){
         try(Connection local = Connect()){
             try(Statement query = local.createStatement()){
                 try(ResultSet set = query.executeQuery(Query)){
@@ -40,27 +42,38 @@ public class DataBaseApi {
         catch (Exception e){
             e.printStackTrace();
         }
+        return  new LinkedList<IMedia>();
     }
     
-    public void insert(IMedia element){
+    public static void insert(IMedia element){
         runQuery("INSERT INTO Medias VALUES (" + element.toString() + ")");
     } 
 
-    public void remove(IMedia element){
+    public static void remove(IMedia element){
         runQuery("DELETE FROM Medias WHERE "                  + 
                     "Name = " + element.getName()  + " AND "  + 
                     "Data = " + element.getData()  + " AND "  +
                     "Type = " +  element.getType().toString() );
     } 
 
-    public List<IMedia> Select(IMedia element){
+    public static List<IMedia> Select(IMedia element){
         return  runQuery("SELECT Name, Type, Data FROM Medias WHERE " + 
                              "Name = " + element.getName() + " AND "  + 
                              "Data = " + element.getData() + " AND "  +
                              "Type =" +  element.getType().toString() );
     } 
 
-    public List<IMedia> SelectAll(){
-        return  runQuery("SELECT * FROM Medias");
+    public static List<IMedia> AllElements(){
+        return runQuery("SELECT * FROM Medias");
     } 
+
+    public static List<IMedia> Take(int idx,int quantity){
+        List<IMedia> items = runQuery("SELECT * FROM Medias");
+        int itemsCount = items.size();
+        if((idx-1) * quantity > itemsCount ){
+            return new LinkedList<IMedia>();
+        }
+        int limit = Math.min(itemsCount - (idx-1)*quantity,quantity);
+        return items.stream().skip((idx -1) * quantity).limit(limit).collect(Collectors.toList());
+    }
 }
