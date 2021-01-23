@@ -32,20 +32,18 @@ public class IMedia {
         
         IMedia m = (IMedia) obj;
 
-        return this.name.equals(m.name)
-            && this.data.equals(m.data);
+        return this.data.equals(m.data);
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode() + data.hashCode();
+        return data.hashCode();
     }
 
     @Override
     public String toString() {  
-        return "(" + name
+        return       name
             + ", " + type.toString()
-            + ", " + data
-            + ")";
+            + ", " + data;
     }
 }
