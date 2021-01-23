@@ -29,6 +29,7 @@ public class SideBar extends JFrame {
     public SideBar() {
         this.setSize(275, 560);
         InitializeComponants();
+        SetupLayout();
         HookEvents();
         Fill();
     }
@@ -44,6 +45,33 @@ public class SideBar extends JFrame {
         prev = new JButton("Previous");
         prev.setSize(50, 30);
         next.setSize(50, 30);
+    }
+
+    private void SetupLayout(){
+        SpringLayout layout = new SpringLayout();
+
+        this.setLayout(layout);
+
+        layout.putConstraint(SpringLayout.WEST , SearchBar, 5, SpringLayout.WEST , this     );
+        layout.putConstraint(SpringLayout.NORTH, SearchBar, 5, SpringLayout.NORTH, this     );
+
+        layout.putConstraint(SpringLayout.WEST , ItemsBar , 5, SpringLayout.WEST , SearchBar);
+        layout.putConstraint(SpringLayout.NORTH, ItemsBar , 5, SpringLayout.SOUTH, SearchBar);
+        
+        layout.putConstraint(SpringLayout.NORTH, global   , 5, SpringLayout.NORTH, SearchBar);
+        layout.putConstraint(SpringLayout.EAST , global   , 5, SpringLayout.EAST , SearchBar);
+        
+        layout.putConstraint(SpringLayout.NORTH, next     , 5, SpringLayout.SOUTH, SearchBar);
+        layout.putConstraint(SpringLayout.EAST , next     , 5, SpringLayout.EAST , SearchBar);
+
+        layout.putConstraint(SpringLayout.NORTH, prev     , 5, SpringLayout.NORTH, SearchBar);
+        layout.putConstraint(SpringLayout.EAST , prev     , 5, SpringLayout.WEST , next     );
+
+        this.add(SearchBar);
+        this.add(ItemsBar);
+        this.add(next);
+        this.add(prev);
+        this.add(global);
     }
 
     private void HookEvents(){
