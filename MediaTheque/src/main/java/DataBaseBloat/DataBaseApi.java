@@ -23,7 +23,6 @@ public class DataBaseApi {
                 try(ResultSet set = query.executeQuery(Query)){
                     List<IMedia> results = new LinkedList<IMedia>();
                     while(set.next()){
-                        //Retrieve by column name
                         String name  = set.getString("Name");
                         MediaType type  =  switch (set.getString("Type")) {
                             case "Image" -> MediaType.Image;
