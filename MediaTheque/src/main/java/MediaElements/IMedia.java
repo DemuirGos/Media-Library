@@ -1,17 +1,11 @@
 package MediaElements;
 
-abstract public class IMedia {
+public class IMedia {
     private String name;
-    private MediaType type;
-    private String data; 
-    
-    IMedia () {}
+    private final MediaType type;
+    private final String data;
 
-    IMedia (MediaType type) {
-        this.type = type;
-    }
-
-    IMedia (String name, MediaType type, String data) {
+    public IMedia(String name, MediaType type, String data) {
         this.name = name; 
         this.type = type;
         this.data = data; 
@@ -27,14 +21,6 @@ abstract public class IMedia {
 
     public String getData() {
         return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
