@@ -1,6 +1,6 @@
 package Componants;
 
-import MediaElements.IMedia;
+import MediaElements.*;
 import DataBaseBloat.DataBaseApi;
 
 import java.awt.event.*;
@@ -9,8 +9,9 @@ import java.util.stream.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.plaf.DimensionUIResource;
 
-public class SideBar extends JFrame {
+public class SideBar extends BaseComponent {
     // search area
     private JTextField SearchBar;
     private JCheckBox global;
@@ -21,13 +22,14 @@ public class SideBar extends JFrame {
 
     // local loaded data area
     private ArrayList<IMedia> items;
-
+    private IMedia selectedItem = null;
     // local page parameters
     int page = 1;
     boolean isGlobal = false;
 
     public SideBar() {
-        this.setSize(275, 560);
+        super();
+        this.setSize(280, 560);
         InitializeComponants();
         SetupLayout();
         HookEvents();
@@ -36,42 +38,40 @@ public class SideBar extends JFrame {
 
     private void InitializeComponants(){
         SearchBar = new JTextField();
-        SearchBar.setSize(270, 40);
+        SearchBar.setPreferredSize(new DimensionUIResource(235, 30));
         global = new JCheckBox();
-        global.setSize(35, 35);
         ItemsBar = new JList<String>();
-        ItemsBar.setSize(270, 505);
+        ItemsBar.setPreferredSize(new DimensionUIResource(245, 450));
         next = new JButton("Next");
         prev = new JButton("Previous");
-        prev.setSize(50, 30);
-        next.setSize(50, 30);
+        prev.setPreferredSize(new DimensionUIResource(245/2, 25));
+        next.setPreferredSize(new DimensionUIResource(245/2, 25));
     }
 
     private void SetupLayout(){
-        SpringLayout layout = new SpringLayout();
 
-        this.setLayout(layout);
-
-        layout.putConstraint(SpringLayout.WEST , SearchBar, 5, SpringLayout.WEST , this     );
-        layout.putConstraint(SpringLayout.NORTH, SearchBar, 5, SpringLayout.NORTH, this     );
-
-        layout.putConstraint(SpringLayout.WEST , ItemsBar , 5, SpringLayout.WEST , SearchBar);
-        layout.putConstraint(SpringLayout.NORTH, ItemsBar , 5, SpringLayout.SOUTH, SearchBar);
         
-        layout.putConstraint(SpringLayout.NORTH, global   , 5, SpringLayout.NORTH, SearchBar);
-        layout.putConstraint(SpringLayout.EAST , global   , 5, SpringLayout.EAST , SearchBar);
+        layout.putConstraint(SpringLayout.WEST , SearchBar, 5, SpringLayout.WEST , this      );
+        layout.putConstraint(SpringLayout.NORTH, SearchBar, 5, SpringLayout.NORTH, this      );
         
-        layout.putConstraint(SpringLayout.NORTH, next     , 5, SpringLayout.SOUTH, SearchBar);
-        layout.putConstraint(SpringLayout.EAST , next     , 5, SpringLayout.EAST , SearchBar);
-
-        layout.putConstraint(SpringLayout.NORTH, prev     , 5, SpringLayout.NORTH, SearchBar);
-        layout.putConstraint(SpringLayout.EAST , prev     , 5, SpringLayout.WEST , next     );
-
+        layout.putConstraint(SpringLayout.WEST , ItemsBar , 5, SpringLayout.WEST , SearchBar );
+        layout.putConstraint(SpringLayout.NORTH, ItemsBar , 30, SpringLayout.SOUTH, SearchBar);
+        
+        layout.putConstraint(SpringLayout.NORTH, global   , 10, SpringLayout.NORTH, this     );
+        layout.putConstraint(SpringLayout.WEST , global   , 2, SpringLayout.EAST , SearchBar );
+        
+        layout.putConstraint(SpringLayout.NORTH, next     , 2, SpringLayout.SOUTH, SearchBar );
+        layout.putConstraint(SpringLayout.EAST , next     , 0, SpringLayout.EAST , ItemsBar  );
+        
+        layout.putConstraint(SpringLayout.NORTH, prev     , 2, SpringLayout.SOUTH, SearchBar );
+        layout.putConstraint(SpringLayout.WEST , prev     , 0, SpringLayout.WEST , ItemsBar  ); 
+        
         this.add(SearchBar);
         this.add(ItemsBar);
         this.add(next);
         this.add(prev);
         this.add(global);
+        this.setLayout(layout);
     }
 
     private void HookEvents(){
@@ -108,6 +108,13 @@ public class SideBar extends JFrame {
                 isGlobal = !isGlobal;
             }
         });
+        ItemsBar.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                selectedItem = items.get(ItemsBar.getSelectedIndex());
+            }
+        });
+
     }
 
     private void Fill(ArrayList<IMedia> items) {
@@ -135,5 +142,13 @@ public class SideBar extends JFrame {
         Fill(foundItems);
     }
     private static final long serialVersionUID = 1L;
-    
+    public static void main(String[] args) {  
+        SideBar m;
+        m = new SideBar();
+        m.setVisible(true);
+    }  
+
+    public IMedia getSelectedItem(){
+        return selectedItem;
+    }
 }
