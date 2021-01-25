@@ -12,11 +12,11 @@ import MediaElements.*;
 public class PreviewPage extends JPanel {
 
     private enum Paths {
-        Image("imageIconPath"),
-        Video("VideoIconPath"),
-        Text("TextIconPath"),
-        Audio("AudioIconPath"),
-        Dummy("C:\\Users\\CykaBlyat\\Desktop\\InitLogo.jpg");
+        Image("src\\main\\java\\Icons\\ImageIcn.JPG"),
+        Video("src\\main\\java\\Icons\\VideoIcnJPG.JPG"),
+        Text("src\\main\\java\\Icons\\TextIcn.JPG"),
+        Audio("src\\main\\java\\Icons\\AudioIcn.JPG"),
+        Dummy("src\\main\\java\\Icons\\notFoundIcn.JPG");
         
         private final String value;
         
@@ -28,9 +28,17 @@ public class PreviewPage extends JPanel {
     private class JImage extends JPanel {
         protected JImage(File f) {
             this.setPreferredSize(new DimensionUIResource(175, 175));
+            Update(f);
+        }
+
+        protected void Update(File f){
+            this.removeAll();
+            this.revalidate();
+            this.repaint();
+            this.setPreferredSize(new DimensionUIResource(175, 175));
             BufferedImage myPicture;
             try {
-                myPicture = resize(ImageIO.read(f), 0.25);
+                myPicture = resize(ImageIO.read(f), 1);
                 JLabel picLabel = new JLabel(new ImageIcon(myPicture));
                 picLabel.setPreferredSize(new DimensionUIResource(175, 175));
                 add(picLabel);
@@ -105,14 +113,7 @@ public class PreviewPage extends JPanel {
     }
 
     private void InitializeComponants() {
-        icon = new JImage(new File(
-                switch (localElement.getType()) {
-                                        /* case Audio -> Paths.Audio.value;
-                                        case Image -> Paths.Image.value;
-                                        case Video -> Paths.Video.value;
-                                        case Text  -> Paths.Text.value ; */
-                    default -> Paths.Dummy.value;
-                }));
+        icon = new JImage(new File(Paths.Dummy.value));
         
         titleComponent = new JTextField(localElement.getName() + " :");
         titleComponent.setPreferredSize(new DimensionUIResource(100, 40));
@@ -135,6 +136,14 @@ public class PreviewPage extends JPanel {
     }
 
     private void Fill(){
+        icon.Update(new File(
+                            switch (localElement.getType()) {
+                                                    case Audio -> Paths.Audio.value;
+                                                    case Image -> Paths.Image.value;
+                                                    case Video -> Paths.Video.value;
+                                                    case Text  -> Paths.Text.value ;
+                                default -> Paths.Dummy.value;
+        }));
         attributesList.removeAll();
         attributesList.revalidate();
         attributesList.repaint();

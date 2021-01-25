@@ -82,8 +82,18 @@ public class DataBaseApi {
     
     public static List<IMedia> Taketemp(int idx,int quantity){ //only for testing to be removed
         List<IMedia> items = new LinkedList<IMedia>();
-        for(int i=0;i<quantity;i++){
+        int i=0;
+        for(;i<quantity/4;i++){
             items.add(new IMedia("test" + String.valueOf(i),MediaType.Text,"rawr", FileUtils.getAttributes(i)));
+        }
+        for(;i<2*quantity/4;i++){
+            items.add(new IMedia("test" + String.valueOf(i),MediaType.Audio,"rawr", FileUtils.getAttributes(i)));
+        }
+        for(;i<3*quantity/4;i++){
+            items.add(new IMedia("test" + String.valueOf(i),MediaType.Video,"rawr", FileUtils.getAttributes(i)));
+        }
+        for(;i<4*quantity/4;i++){
+            items.add(new IMedia("test" + String.valueOf(i),MediaType.Image,"rawr", FileUtils.getAttributes(i)));
         }
         return items;
     }

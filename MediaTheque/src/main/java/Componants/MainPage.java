@@ -3,7 +3,7 @@ package Componants;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
-
+import Componants.Actions.*;
 import javax.swing.*;
 
 import DataBaseBloat.DataBaseApi;
@@ -35,15 +35,16 @@ public class MainPage extends JFrame implements Observer {
         layout.putConstraint(SpringLayout.NORTH, attributesBar, 5, SpringLayout.SOUTH, menuBar);
         layout.putConstraint(SpringLayout.WEST, attributesBar, 1, SpringLayout.EAST, sideBar);
 
-        layout.putConstraint(SpringLayout.NORTH, importButton, 5, SpringLayout.SOUTH, attributesBar);
-        layout.putConstraint(SpringLayout.WEST, importButton, 130, SpringLayout.WEST, attributesBar);
+        layout.putConstraint(SpringLayout.NORTH, importButton, 0, SpringLayout.SOUTH, attributesBar);
+        layout.putConstraint(SpringLayout.WEST, importButton, 155, SpringLayout.WEST, attributesBar);
 
-        layout.putConstraint(SpringLayout.NORTH, removeButton, 5, SpringLayout.SOUTH, attributesBar);
+        layout.putConstraint(SpringLayout.NORTH, removeButton, 0, SpringLayout.SOUTH, attributesBar);
         layout.putConstraint(SpringLayout.WEST, removeButton, 5, SpringLayout.EAST, importButton);
 
         this.add(menuBar);
         this.add(sideBar);
         this.add(attributesBar);
+
         this.add(importButton);
         this.add(removeButton);
 
@@ -56,8 +57,6 @@ public class MainPage extends JFrame implements Observer {
     private void setElems () {
         Actions.deletionEvent.addObserver(this);
         ImportPage.getFilters().forEach(chooser::setFileFilter);
-        importButton.setSize(20, 15);
-        removeButton.setSize(20, 15);
         importButton.addActionListener(Actions.importAct());
         removeButton.addActionListener(Actions.deleteAct());
         chooser.addActionListener(Actions.chooserAct());
