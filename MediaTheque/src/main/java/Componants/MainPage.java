@@ -1,11 +1,8 @@
 package Componants;
 
 import javax.swing.*;
-
 import MediaElements.*;
 import Utils.FileUtils;
-
-import java.util.Hashtable;
 
 public class MainPage extends JFrame {
     private static final long serialVersionUID = 1L;

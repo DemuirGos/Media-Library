@@ -2,10 +2,8 @@ package Componants;
 
 import MediaElements.*;
 import DataBaseBloat.DataBaseApi;
-
 import java.util.*;
 import java.util.stream.*;
-
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.plaf.DimensionUIResource;
@@ -16,6 +14,7 @@ public class SideBar extends JPanel {
     private JCheckBox global;
     // items area
     private JList<String> ItemsBar;
+    DefaultListModel<String> model;
     private JButton next;
     private JButton prev;
 
@@ -38,13 +37,21 @@ public class SideBar extends JPanel {
     private void InitializeComponants(){
         SearchBar = new JTextField();
         SearchBar.setPreferredSize(new DimensionUIResource(235, 30));
+        
         global = new JCheckBox();
-        ItemsBar = new JList<String>();
-        ItemsBar.setPreferredSize(new DimensionUIResource(245, 465));
+        
+        model = new DefaultListModel<>(); 
+        ItemsBar = new JList<String>(model);
+        ItemsBar.setPreferredSize(new DimensionUIResource(245, 455));
+        ItemsBar.setFixedCellHeight(35);
+        ItemsBar.setFixedCellWidth(450);
+
+
         next = new JButton("Next");
+        next.setPreferredSize(new DimensionUIResource(245/2, 25));
+        
         prev = new JButton("Previous");
         prev.setPreferredSize(new DimensionUIResource(245/2, 25));
-        next.setPreferredSize(new DimensionUIResource(245/2, 25));
     }
 
     private void SetupLayout(){
@@ -102,30 +109,27 @@ public class SideBar extends JPanel {
             }
             });
         global.addActionListener(e -> isGlobal = !isGlobal);
-
-        ItemsBar.addListSelectionListener(new ListSelectionListener(){
+        
+        var itemsBarSelectionModel = ItemsBar.getSelectionModel();
+        itemsBarSelectionModel.addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 selectedItem = items.get(ItemsBar.getSelectedIndex());
+                SearchBar.setText(selectedItem.getName());
             }
         });
 
     }
 
     private void Fill(ArrayList<IMedia> items) {
-        this.ItemsBar.removeAll();
-        int i = 0;
+        model.removeAllElements();
         for (IMedia item : items) {
-            JTextField element = new JTextField(item.getName());
-            element.setBounds(5, 5 + 30*i, 235, 30);
-            element.setEditable(false);
-            this.ItemsBar.add(element);
-            i++;
+            model.addElement(item.getName());
         }
     }
 
     private void Fill() {
-        items = new ArrayList<>(DataBaseBloat.DataBaseApi.Taketemp(page, 15));// to change to Take
+        items = new ArrayList<>(DataBaseBloat.DataBaseApi.Taketemp(page, 13));// to change to Take
         Fill(items);
     }
 
@@ -138,7 +142,6 @@ public class SideBar extends JPanel {
         } else {
             foundItems = this.items.stream().filter(itm -> itm.getName().contains(word)).collect(Collectors.toCollection(ArrayList::new));
         }
-
         Fill(foundItems);
     }
     private static final long serialVersionUID = 1L;

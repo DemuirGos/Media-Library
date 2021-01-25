@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 import java.io.*;
-
 import MediaElements.*;
 
 public class PreviewPage extends JPanel {
@@ -145,7 +144,6 @@ public class PreviewPage extends JPanel {
             JTextField value = new JTextField(localElement.getAttributes().get(att));
             this.attributesList.add(title);
             this.attributesList.add(value);
-            System.out.println(att + " : " + localElement.getAttributes().get(att));
         }
     }
 }
