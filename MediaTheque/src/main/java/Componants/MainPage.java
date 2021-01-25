@@ -4,10 +4,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.*;
+
+import Componants.MenuBar.DeletionEvent;
+import Componants.SideBar.SelectionEvent;
+import DataBaseBloat.DataBaseApi;
 import MediaElements.*;
 import Utils.FileUtils;
 
 public class MainPage extends JFrame implements Observer {
+    
     private static final long serialVersionUID = 1L;
 
     private final SideBar sideBar = new SideBar(this);
@@ -50,6 +55,11 @@ public class MainPage extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        this.AttributesBar.setItem(this.sideBar.getSelectedItem());
+        if(o instanceof SelectionEvent)
+            this.AttributesBar.setItem(this.sideBar.getSelectedItem());
+        else if(o instanceof DeletionEvent){
+            DataBaseApi.remove(this.sideBar.getSelectedItem());
+            this.sideBar.update() ;
+        }
     }
 }

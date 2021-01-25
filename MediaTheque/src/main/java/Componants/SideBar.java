@@ -167,4 +167,9 @@ public class SideBar extends JPanel{
     public IMedia getSelectedItem(){
         return selectedItem;
     }
+
+    public void update(){
+        Fill();
+        selectedItem = null;
+    }
 }
