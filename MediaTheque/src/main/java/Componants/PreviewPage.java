@@ -26,8 +26,6 @@ public class PreviewPage extends JPanel {
     }
 
     private class JImage extends JPanel {
-        private static final long serialVersionUID = 1L;
-
         protected JImage(File f) {
             this.setPreferredSize(new DimensionUIResource(175, 175));
             BufferedImage myPicture;
@@ -52,8 +50,6 @@ public class PreviewPage extends JPanel {
         }
     }
 
-    private static final long serialVersionUID = 1L;
-    
     //type icon 
     private JImage icon;
 
@@ -73,7 +69,16 @@ public class PreviewPage extends JPanel {
     protected SpringLayout layout = new SpringLayout();
 
     public PreviewPage(){
-        this.setPreferredSize(new DimensionUIResource(485, 530));
+        buildPage();
+    }
+
+    public PreviewPage(IMedia iMedia) {
+        setItem(iMedia);
+        buildPage();
+    }
+
+    private void buildPage () {
+        this.setPreferredSize(new DimensionUIResource(485, 500));
         InitializeComponants();
         this.setLayout(layout);
         SetupLayout();
@@ -99,23 +104,15 @@ public class PreviewPage extends JPanel {
         this.add(attributesList);
     }
 
-    public PreviewPage(IMedia iMedia) {
-        setItem(iMedia);
-        this.setPreferredSize(new DimensionUIResource(485, 530));
-        InitializeComponants();
-        this.setLayout(layout);
-        SetupLayout();
-        Fill();
-    }
-
     private void InitializeComponants() {
-        icon =  new JImage( new File(
-                                    switch (localElement.getType()){
+        icon = new JImage(new File(
+                switch (localElement.getType()) {
                                         /* case Audio -> Paths.Audio.value;
                                         case Image -> Paths.Image.value;
                                         case Video -> Paths.Video.value;
                                         case Text  -> Paths.Text.value ; */
-                                        default    -> Paths.Dummy.value; }));
+                    default -> Paths.Dummy.value;
+                }));
         
         titleComponent = new JTextField(localElement.getName() + " :");
         titleComponent.setPreferredSize(new DimensionUIResource(100, 40));

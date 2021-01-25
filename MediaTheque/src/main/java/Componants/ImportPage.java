@@ -13,9 +13,7 @@ import java.io.File;
 import java.util.List;
 
 public class ImportPage extends JFrame {
-    private static final long serialVersionUID = 1L;
-
-    private static List<FileNameExtensionFilter> filters = List.of(
+    private static final List<FileNameExtensionFilter> filters = List.of(
                         new FileNameExtensionFilter("Image", "jpg", "png", "gif", "jpeg"),
                         new FileNameExtensionFilter("Video", "amv", "mp4", "avi", "flv", "wmv"),
                         new FileNameExtensionFilter("Texte", "txt", "docx", "pdf", "csv"),
