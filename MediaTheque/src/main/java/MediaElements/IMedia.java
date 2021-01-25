@@ -2,15 +2,15 @@ package MediaElements;
 
 import java.util.*;
 
-//Medias Schema : Name Type Data Date Path Size
+//Medias Schema : Name Type Data Date Path Size OriginalExtension
 
 public class IMedia {
     private String name;
     private MediaType type;
     private String raw;
-    private Dictionary<String, String> attributes; 
+    private Map<String, String> attributes; 
 
-    public IMedia(String name, MediaType type, String raw, Dictionary<String, String> dictionary){
+    public IMedia(String name, MediaType type, String raw, Map<String, String> dictionary){
         this.raw = raw;
         this.type = type;
         this.name = name;
@@ -21,7 +21,7 @@ public class IMedia {
         return name;
     }
     
-    public Dictionary<String, String>  getAttributes() {
+    public Map<String, String>  getAttributes() {
         return attributes;
     }
 
@@ -40,6 +40,7 @@ public class IMedia {
                 + getData() + ", "
                 + attributes.get("Date Inserted") + ", "
                 + attributes.get("Original Path") + ", "
-                + attributes.get("File Size");
+                + attributes.get("File Size") + ", "
+                + attributes.get("Original Extension");
     }
 }

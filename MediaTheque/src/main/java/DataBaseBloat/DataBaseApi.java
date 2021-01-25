@@ -32,6 +32,7 @@ public class DataBaseApi {
                             default -> throw new IllegalStateException("Invalid type");
                         };
                         var attributes = new Hashtable<String,String>();
+                        attributes.put("Original Extension", set.getString("Extension"));
                         attributes.put("Date Inserted", set.getString("Date"));
                         attributes.put("Original Path", set.getString("Path"));
                         attributes.put("File Size"    , set.getString("Size"));
@@ -59,7 +60,7 @@ public class DataBaseApi {
     } 
 
     public static List<IMedia> Select(IMedia element){
-        return  runQuery("SELECT Name, Type, Data FROM Medias WHERE " + 
+        return  runQuery("SELECT * FROM Medias WHERE " + 
                              "Name = " + element.getName() + " AND "  + 
                              "Type =" +  element.getType().toString() );
     } 
@@ -78,11 +79,12 @@ public class DataBaseApi {
         return items.stream().skip((idx -1) * quantity).limit(limit).collect(Collectors.toList());
     }
     
-    public static List<IMedia> Taketemp(int idx,int quantity){
+    public static List<IMedia> Taketemp(int idx,int quantity){ //only for testing to be removed
         List<IMedia> items = new LinkedList<IMedia>();
         for(int i=0;i<quantity;i++){
             items.add(new IMedia("test" + String.valueOf(i),MediaType.Text,"rawr", new Hashtable<>()));
         }
         return items;
     }
+
 }
