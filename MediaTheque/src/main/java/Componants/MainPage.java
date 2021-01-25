@@ -2,12 +2,19 @@ package Componants;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
+
+import MediaElements.*;
+
+import java.util.Hashtable;
 import java.util.List;
 
 public class MainPage extends JFrame {
+    private static final long serialVersionUID = 1L;
+
     private final JFileChooser chooser = new JFileChooser("$HOME");
     private final SideBar sideBar = new SideBar();
+    private final TopMenuBar menuBar = new TopMenuBar();
+    private final PreviewPage AttributesBar = new PreviewPage(new IMedia("test" ,MediaType.Text,"rawr", new Hashtable<>()));
 
     MainPage () {
         List<FileNameExtensionFilter> filters = List.of(
@@ -17,43 +24,36 @@ public class MainPage extends JFrame {
                 new FileNameExtensionFilter("Audio", "mp3", "wav", "wv", "flac"));
 
         filters.forEach(chooser::setFileFilter);
-        BorderLayout layout = new BorderLayout();
+        SpringLayout layout = new SpringLayout();
 
         this.setLayout(layout);
         this.setSize(800,600);
-        this.getContentPane().add(new ButtonsBar(), BorderLayout.SOUTH);
-        this.getContentPane().add(new TopMenuBar(), BorderLayout.NORTH);
-        this.getContentPane().add(sideBar, BorderLayout.CENTER);
+    
+        layout.putConstraint(SpringLayout.NORTH ,menuBar, 3, SpringLayout.NORTH, this);
+        layout.putConstraint(SpringLayout.WEST  ,menuBar, 3, SpringLayout.WEST, this);
+        
+        layout.putConstraint(SpringLayout.NORTH ,sideBar, 3, SpringLayout.SOUTH, menuBar);
+        layout.putConstraint(SpringLayout.WEST  ,sideBar, 1, SpringLayout.WEST, this);
+        
+        layout.putConstraint(SpringLayout.NORTH ,AttributesBar, 5, SpringLayout.SOUTH, menuBar);
+        layout.putConstraint(SpringLayout.WEST  ,AttributesBar, 1, SpringLayout.EAST, sideBar);
+
+        this.add(menuBar);
+        this.add(sideBar);
+        this.add(AttributesBar);
 
         chooser.addActionListener(e -> new ImportPage(chooser.getSelectedFile().getAbsolutePath()));
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
-    }
-
-    private class ButtonsBar extends JPanel {
-
-        ButtonsBar() {
-            JButton openImport = new JButton("import");
-            JButton deleteSelected = new JButton("supprimer");
-
-            openImport.setSize(20,15);
-            deleteSelected.setSize(20, 15);
-
-            openImport.addActionListener(e -> chooser.showOpenDialog(null));
-
-            //deleteSelected.addActionListener(e -> sideBar);
-
-            this.add(openImport);
-            this.add(deleteSelected);
-            this.setSize(800, 20);
-            this.setVisible(true);
-        }
+        this.setResizable(false);
     }
 
     private class TopMenuBar extends JMenuBar {
 
-        TopMenuBar () {
+        private static final long serialVersionUID = 1L;
+
+        TopMenuBar() {
             JMenu file = new JMenu("File");
             JMenuItem add = new JMenuItem("Importer");
             JMenuItem remove = new JMenuItem("Supprimer");

@@ -1,18 +1,28 @@
 package MediaElements;
 
+import java.util.*;
+
+//Medias Schema : Name Type Data Date Path Size
+
 public class IMedia {
     private String name;
-    private final MediaType type;
-    private final String data;
+    private MediaType type;
+    private String raw;
+    private Dictionary<String, String> attributes; 
 
-    public IMedia(String name, MediaType type, String data) {
-        this.name = name; 
+    public IMedia(String name, MediaType type, String raw, Dictionary<String, String> dictionary){
+        this.raw = raw;
         this.type = type;
-        this.data = data; 
+        this.name = name;
+        this.attributes = dictionary;
     }
-
+    
     public String getName() {
         return name;
+    }
+    
+    public Dictionary<String, String>  getAttributes() {
+        return attributes;
     }
 
     public MediaType getType() {
@@ -20,30 +30,16 @@ public class IMedia {
     }
 
     public String getData() {
-        return data;
+        return raw;
     }
 
     @Override
-    public boolean equals(Object obj) { 
-        if (this == obj)
-            return true;
-        if (!(obj instanceof IMedia))
-            return false;
-        
-        IMedia m = (IMedia) obj;
-
-        return this.data.equals(m.data);
-    }
-
-    @Override
-    public int hashCode() {
-        return data.hashCode();
-    }
-
-    @Override
-    public String toString() {  
-        return       name
-            + ", " + type.toString()
-            + ", " + data;
+    public String toString(){
+        return    getName() + ", "
+                + getType().toString() + ", "
+                + getData() + ", "
+                + attributes.get("Date Inserted") + ", "
+                + attributes.get("Original Path") + ", "
+                + attributes.get("File Size");
     }
 }

@@ -7,10 +7,13 @@ import Utils.FileUtils;
 import Utils.StringUtils;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.io.File;
 import java.util.List;
 
 public class ImportPage extends JFrame {
+    private static final long serialVersionUID = 1L;
+
     private final List<String> imgExt = List.of("jpg", "png", "gif", "jpeg");
     private final List<String> vidExt = List.of("amv", "mp4", "avi", "flv", "wmv");
     private final List<String> textExt = List.of("txt", "docx", "pdf", "csv");
@@ -45,11 +48,13 @@ public class ImportPage extends JFrame {
         this.setVisible(true);
     }
 
-    public void setSaveButton() {
+    public void setSaveButton () {
         saveButton.addActionListener(e -> {
-            String fileName = textField.getText();
-            DataBaseApi.insert(new IMedia(fileName, parseFileExt(fileName), StringUtils.encode(FileUtils.readFile(fileName))));
-            this.dispose();
+            File file = new File(textField.getText());
+            DataBaseApi.insert(new IMedia(  file.getName(), 
+                                            parseFileExt(file.getName()), 
+                                            StringUtils.encode(FileUtils.readFile(file)),
+                                            FileUtils.getAttributes(file) ));
         });
     }
 
@@ -57,19 +62,16 @@ public class ImportPage extends JFrame {
         return exts.stream().anyMatch(fileName::endsWith);
     }
 
-    public MediaType parseFileExt(String fileName) {
+    public MediaType parseFileExt (String fileName) {
         if (checkFileEnd(imgExt, fileName))
             return MediaType.Image;
-
-        if (checkFileEnd(audioExt, fileName))
+        else if (checkFileEnd(audioExt, fileName))
             return MediaType.Audio;
-
-        if (checkFileEnd(vidExt, fileName))
+        else if (checkFileEnd(vidExt, fileName))
             return MediaType.Video;
-
-        if (checkFileEnd(textExt, fileName))
+        else if (checkFileEnd(textExt, fileName))
             return MediaType.Text;
-
-        return null;
+        throw new IllegalStateException("Invalid type");
     }
+
 }
