@@ -6,9 +6,11 @@ import javax.swing.plaf.DimensionUIResource;
 public class MenuBar extends JMenuBar {
         private static final long serialVersionUID = 1L;
         private static final JFileChooser chooser = new JFileChooser("$HOME");
-        
-        MenuBar() {
+        private JFrame Container; 
 
+        MenuBar(JFrame parent) {
+
+            Container = parent;
             ImportPage.getFilters().forEach(chooser::setFileFilter);
 
             JMenu file = new JMenu("File");
@@ -35,7 +37,7 @@ public class MenuBar extends JMenuBar {
             chooser.addActionListener(e -> new ImportPage(chooser.getSelectedFile().getAbsolutePath()));
 
             exit.addActionListener(e -> {
-                System.exit(0);
+                Container.dispose();
             });
         }
     }

@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.stream.*;
 
 import MediaElements.*;
+import Utils.FileUtils;
 
 public class DataBaseApi {
     private static String JdbcDriver = "com.mysql.jdbc.Driver";  
@@ -82,7 +83,7 @@ public class DataBaseApi {
     public static List<IMedia> Taketemp(int idx,int quantity){ //only for testing to be removed
         List<IMedia> items = new LinkedList<IMedia>();
         for(int i=0;i<quantity;i++){
-            items.add(new IMedia("test" + String.valueOf(i),MediaType.Text,"rawr", new Hashtable<>()));
+            items.add(new IMedia("test" + String.valueOf(i),MediaType.Text,"rawr", FileUtils.getAttributes(i)));
         }
         return items;
     }

@@ -2,7 +2,7 @@ package MediaElements;
 
 import java.util.*;
 
-//Medias Schema : Name Type Data Date Path Size OriginalExtension
+//Medias Schema : Name Type Data Date Path Size Extension
 
 public class IMedia {
     private String name;

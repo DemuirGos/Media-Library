@@ -31,12 +31,12 @@ public class FileUtils {
     }
 
     
-    public static Map<String,String> getAttributes() { // only for testing to be removed use getAttributes(File d) instead 
+    public static Map<String,String> getAttributes(int i) { // only for testing to be removed use getAttributes(File d) instead 
         var attributes = new Hashtable<String,String>();
-        attributes.put("Original Extension", "mp4");
-        attributes.put("Date Inserted", "01/01/0001");
-        attributes.put("Original Path", "/root/rooter/rooster");
-        attributes.put("File Size", "1000mb");
+        attributes.put("Original Extension", "mp4" + String.valueOf(i));
+        attributes.put("Date Inserted", "01/01/000" + String.valueOf(i));
+        attributes.put("Original Path", "/root/rooter/rooster/" + String.valueOf(i));
+        attributes.put("File Size", String.valueOf(i) + "mb");
         return attributes;
     }
 }

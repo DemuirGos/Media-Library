@@ -111,10 +111,10 @@ public class PreviewPage extends JPanel {
     private void InitializeComponants() {
         icon =  new JImage( new File(
                                     switch (localElement.getType()){
-                                        case Audio -> Paths.Audio.value;
+                                        /* case Audio -> Paths.Audio.value;
                                         case Image -> Paths.Image.value;
                                         case Video -> Paths.Video.value;
-                                        case Text  -> Paths.Text.value ;
+                                        case Text  -> Paths.Text.value ; */
                                         default    -> Paths.Dummy.value; }));
         
         titleComponent = new JTextField(localElement.getName() + " :");
@@ -133,14 +133,18 @@ public class PreviewPage extends JPanel {
 
     public void setItem(IMedia element) {
         localElement = element;
+        if(attributesList != null)
+            Fill();
     }
 
     private void Fill(){
-        this.attributesList.removeAll();
+        attributesList.removeAll();
+        attributesList.revalidate();
+        attributesList.repaint();
         GridLayout layout = new GridLayout(localElement.getAttributes().size() + 1, 2);
         this.attributesList.setLayout(layout);
         for(var att : localElement.getAttributes().keySet()){
-            JTextField title = new JTextField(att);
+            JLabel title = new JLabel(att);
             JTextField value = new JTextField(localElement.getAttributes().get(att));
             this.attributesList.add(title);
             this.attributesList.add(value);

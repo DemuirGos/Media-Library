@@ -7,8 +7,20 @@ import java.util.stream.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.plaf.DimensionUIResource;
+import java.util.Observable;
 
-public class SideBar extends JPanel {
+public class SideBar extends JPanel{
+    public class SelectionEvent extends Observable {
+        private IMedia _element;
+        public void setElement(IMedia element) {
+            this._element = element;
+            setChanged();
+            notifyObservers(element);
+        }
+    };
+    // observable/parent
+    SelectionEvent SelectionEventHandler = new SelectionEvent();  
+    Observer Parent;
     // search area
     private JTextField SearchBar;
     private JCheckBox global;
@@ -25,8 +37,9 @@ public class SideBar extends JPanel {
     int page = 1;
     boolean isGlobal = false;
 
-    public SideBar() {
+    public SideBar(Observer container) {
         super();
+        Parent = container;
         this.setPreferredSize(new DimensionUIResource(280, 600));
         InitializeComponants();
         SetupLayout();
@@ -35,6 +48,8 @@ public class SideBar extends JPanel {
     }
 
     private void InitializeComponants(){
+        SelectionEventHandler.addObserver(Parent);
+
         SearchBar = new JTextField();
         SearchBar.setPreferredSize(new DimensionUIResource(235, 30));
         
@@ -114,8 +129,12 @@ public class SideBar extends JPanel {
         itemsBarSelectionModel.addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                selectedItem = items.get(ItemsBar.getSelectedIndex());
-                SearchBar.setText(selectedItem.getName());
+                for(var item :items)
+                    if(item.getName() == ItemsBar.getSelectedValue()){
+                        selectedItem = item;
+                        break;
+                    }
+                SelectionEventHandler.setElement(selectedItem);
             }
         });
 
