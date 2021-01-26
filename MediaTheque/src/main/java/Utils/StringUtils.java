@@ -1,6 +1,5 @@
 package Utils;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class StringUtils {
             sr.append(finalSep);
         });
         sr.delete(sr.length() - 1, sr.length());
-        System.out.println(sr.toString());
         return sr.toString();
     }
 }

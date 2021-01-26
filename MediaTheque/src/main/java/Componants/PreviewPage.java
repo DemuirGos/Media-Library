@@ -14,11 +14,11 @@ import java.util.List;
 public class PreviewPage extends JPanel {
 
     private enum Paths {
-        Image(StringUtils.mkStringPath(List.of("src", "main", "java", "Icons", "ImageIcn.JPG"))),
-        Video(StringUtils.mkStringPath(List.of("src","main","java","Icons","VideoIcnJPG.JPG"))),
-        Text(StringUtils.mkStringPath(List.of("src","main","java","Icons","TextIcn.JPG"))),
-        Audio(StringUtils.mkStringPath(List.of("src","main","java","Icons","AudioIcn.JPG"))),
-        Dummy(StringUtils.mkStringPath(List.of("src","main","java","Icons","notFoundIcn.JPG")));
+        Image(StringUtils.mkStringPath(List.of("src", "main", "java", "Icons", "ImageIcn.png"))),
+        Video(StringUtils.mkStringPath(List.of("src","main","java","Icons","VideoIcnJPG.png"))),
+        Text(StringUtils.mkStringPath(List.of("src","main","java","Icons","TextIcn.png"))),
+        Audio(StringUtils.mkStringPath(List.of("src","main","java","Icons","AudioIcn.png"))),
+        Dummy(StringUtils.mkStringPath(List.of("src","main","java","Icons","notFoundIcn.png")));
         
         private final String value;
         
