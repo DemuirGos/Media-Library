@@ -28,8 +28,10 @@ public class ImportPage extends JFrame {
 
     private final JTextField textField;
     private final JButton saveButton;
+    private final String path;
 
     ImportPage(String path) {
+        this.path = path;
         SpringLayout layout = new SpringLayout();
 
         JLabel label = new JLabel("Nom Fichier: ");
@@ -57,8 +59,13 @@ public class ImportPage extends JFrame {
 
     public void setSaveButton () {
         saveButton.addActionListener(e -> {
-            File file = new File(textField.getText());
-            DataBaseApiDummy.insert(new IMedia(  file.getName(), 
+            File file = new File(path);
+
+            String[] splt = path.split("\\.");
+            String ext = splt[splt.length - 1];
+            String customName = new File(textField.getText()).getName();
+
+            DataBaseApiDummy.insert(new IMedia(customName + (customName.endsWith(ext) ? "" : "." + ext),
                                             parseFileExt(file.getName()), 
                                             StringUtils.encode(FileUtils.readFile(file)),
                                             FileUtils.getAttributes(file) ));

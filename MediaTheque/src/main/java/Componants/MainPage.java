@@ -27,6 +27,8 @@ public class MainPage extends JFrame implements Observer {
     protected static final JFileChooser chooser = new JFileChooser("$HOME");
     private final JButton importButton = new JButton("Import");
     private final JButton removeButton = new JButton("Delete");
+    private final JButton exportButton = new JButton("Export");
+    private final JButton openButton = new JButton("Open");
 
     MainPage() {
         SpringLayout layout = new SpringLayout();
@@ -44,17 +46,25 @@ public class MainPage extends JFrame implements Observer {
         layout.putConstraint(SpringLayout.NORTH, attributesBar, 5, SpringLayout.SOUTH, menuBar);
         layout.putConstraint(SpringLayout.WEST, attributesBar, 1, SpringLayout.EAST, sideBar);
 
+        layout.putConstraint(SpringLayout.NORTH, openButton, 0, SpringLayout.SOUTH, attributesBar);
+        layout.putConstraint(SpringLayout.WEST, openButton, 95, SpringLayout.WEST, attributesBar);
+
         layout.putConstraint(SpringLayout.NORTH, importButton, 0, SpringLayout.SOUTH, attributesBar);
-        layout.putConstraint(SpringLayout.WEST, importButton, 155, SpringLayout.WEST, attributesBar);
+        layout.putConstraint(SpringLayout.WEST, importButton, 5, SpringLayout.EAST, openButton);
+
+        layout.putConstraint(SpringLayout.NORTH, exportButton, 0, SpringLayout.SOUTH, attributesBar);
+        layout.putConstraint(SpringLayout.WEST, exportButton, 5, SpringLayout.EAST, importButton);
 
         layout.putConstraint(SpringLayout.NORTH, removeButton, 0, SpringLayout.SOUTH, attributesBar);
-        layout.putConstraint(SpringLayout.WEST, removeButton, 5, SpringLayout.EAST, importButton);
+        layout.putConstraint(SpringLayout.WEST, removeButton, 5, SpringLayout.EAST, exportButton);
 
         this.add(menuBar);
         this.add(sideBar);
         this.add(attributesBar);
 
+        this.add(openButton);
         this.add(importButton);
+        this.add(exportButton);
         this.add(removeButton);
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

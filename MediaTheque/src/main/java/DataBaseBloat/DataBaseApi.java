@@ -62,26 +62,26 @@ public class DataBaseApi {
         List<IMedia> items = runQuery("SELECT * FROM Medias");
         int itemsCount = items.size();
         if((idx-1) * quantity > itemsCount ){
-            return new LinkedList<IMedia>();
+            return new LinkedList<>();
         }
         int limit = Math.min(itemsCount - (idx-1)*quantity,quantity);
-        return items.stream().skip((idx -1) * quantity).limit(limit).collect(Collectors.toList());
+        return items.stream().skip((long) (idx - 1) * quantity).limit(limit).collect(Collectors.toList());
     }
     
     public static List<IMedia> Taketemp(int idx,int quantity){ //only for testing to be removed
-        List<IMedia> items = new LinkedList<IMedia>();
+        List<IMedia> items = new LinkedList<>();
         int i=0;
         for(;i<quantity/4;i++){
-            items.add(new IMedia("test" + String.valueOf(i),MediaType.Text,"rawr", FileUtils.getAttributes(i)));
+            items.add(new IMedia("test" + i,MediaType.Text,"rawr", FileUtils.getAttributes(i)));
         }
         for(;i<2*quantity/4;i++){
-            items.add(new IMedia("test" + String.valueOf(i),MediaType.Audio,"rawr", FileUtils.getAttributes(i)));
+            items.add(new IMedia("test" + i,MediaType.Audio,"rawr", FileUtils.getAttributes(i)));
         }
         for(;i<3*quantity/4;i++){
-            items.add(new IMedia("test" + String.valueOf(i),MediaType.Video,"rawr", FileUtils.getAttributes(i)));
+            items.add(new IMedia("test" + i,MediaType.Video,"rawr", FileUtils.getAttributes(i)));
         }
         for(;i<4*quantity/4;i++){
-            items.add(new IMedia("test" + String.valueOf(i),MediaType.Image,"rawr", FileUtils.getAttributes(i)));
+            items.add(new IMedia("test" + i,MediaType.Image,"rawr", FileUtils.getAttributes(i)));
         }
         return items;
     }
