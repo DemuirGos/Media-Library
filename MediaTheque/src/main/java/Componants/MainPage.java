@@ -94,45 +94,38 @@ public class MainPage extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        switch(((CustomEvent)o).getType()){
-            case SelectionEvent:
-            {
-                this.attributesBar.setItem(this.sideBar.getSelectedItem());
-                break;
-            }
-            case DeletionEvent:
-            {
+        switch (((CustomEvent) o).getType()) {
+            case SelectionEvent -> this.attributesBar.setItem(this.sideBar.getSelectedItem());
+
+            case DeletionEvent -> {
                 DataBaseApiDummy.remove(this.sideBar.getSelectedItem());
-                this.sideBar.update() ;
-                break;
+                this.sideBar.update();
             }
-            case ExportEvent:
-            {
+
+            case ExportEvent -> {
                 try {
                     var selectedItem = this.sideBar.getSelectedItem();
-                    var chooser = new JFileChooser(); 
-                    chooser.setCurrentDirectory(new java.io.File("."));
+                    var chooser = new JFileChooser();
+                    chooser.setCurrentDirectory(new File("."));
                     chooser.setDialogTitle("Chose a Location :");
                     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     chooser.setAcceptAllFileFilterUsed(false);
-                    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
+                    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                         var location = chooser.getSelectedFile();
-                        File file = File.createTempFile(selectedItem.getName(),"." + selectedItem.getAttributes().get("Original Extension"),location);
+                        File file = File.createTempFile(selectedItem.getName(), "." + selectedItem.getAttributes().get("Original Extension"), location);
                         FileUtils.writeFile(file, StringUtils.decode(selectedItem.getData()));
-                    }
-                    else {
+                    } else {
                         System.out.println("No Selection ");
                     }
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                break;
             }
-            case OpenEvent:
-            {
+
+            case OpenEvent -> {
                 try {
                     var selectedItem = this.sideBar.getSelectedItem();
-                    File file = File.createTempFile(selectedItem.getName(),"." + selectedItem.getAttributes().get("Original Extension"));
+                    File file = File.createTempFile(selectedItem.getName(), "." + selectedItem.getAttributes().get("Original Extension"));
                     FileUtils.writeFile(file, StringUtils.decode(selectedItem.getData()));
                     Desktop desktop = Desktop.getDesktop();
                     if (file.exists())
@@ -140,10 +133,9 @@ public class MainPage extends JFrame implements Observer {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                break;
             }
-            case InsertionEvent:
-            {
+
+            case InsertionEvent -> {
                 System.out.println("inserting ");
                 this.sideBar.update();
             }
