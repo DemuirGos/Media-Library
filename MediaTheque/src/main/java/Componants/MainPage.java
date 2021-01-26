@@ -1,14 +1,15 @@
 package Componants;
 
-import java.awt.event.KeyEvent;
+import DataBaseBloat.DataBaseApi;
+import DataBaseBloat.DatabaseConn;
+import MediaElements.IMedia;
+import MediaElements.MediaType;
+import Utils.FileUtils;
+
+import javax.swing.*;
+import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
-import Componants.Actions.*;
-import javax.swing.*;
-
-import DataBaseBloat.DataBaseApi;
-import MediaElements.*;
-import Utils.FileUtils;
 
 public class MainPage extends JFrame implements Observer {
 
@@ -62,7 +63,8 @@ public class MainPage extends JFrame implements Observer {
         chooser.addActionListener(Actions.chooserAct());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        DatabaseConn conn = new DatabaseConn();
         new MainPage();
     }
 

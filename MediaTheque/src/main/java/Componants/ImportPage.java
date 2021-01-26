@@ -31,7 +31,7 @@ public class ImportPage extends JFrame {
         SpringLayout layout = new SpringLayout();
 
         JLabel label = new JLabel("Nom Fichier: ");
-        textField = new JTextField(path);
+        textField = new JTextField(path, 17);
         saveButton = new JButton("Sauvegarder");
 
         layout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, this);

@@ -8,46 +8,34 @@ import MediaElements.*;
 import Utils.FileUtils;
 
 public class DataBaseApi {
-    private static String JdbcDriver = "com.mysql.jdbc.Driver";  
-    private static String DbLocation = "jdbc:mysql://localhost/EMP";
-    private static String User = "usernamse";
-    private static String Password = "password";
-
-    private static Connection Connect() throws ClassNotFoundException, SQLException {
-        Class.forName(JdbcDriver);
-        return DriverManager.getConnection(DbLocation,User,Password);
-    }
-
     private static List<IMedia> runQuery(String Query){
-        try(Connection local = Connect()){
-            try(Statement query = local.createStatement()){
-                try(ResultSet set = query.executeQuery(Query)){
-                    List<IMedia> results = new LinkedList<IMedia>();
-                    while(set.next()){
-                        String name  = set.getString("Name");
-                        MediaType type  =  switch (set.getString("Type")) {
-                            case "Image" -> MediaType.Image;
-                            case "Video" -> MediaType.Video;
-                            case "Text"  -> MediaType.Text;
-                            case "Audio" -> MediaType.Audio;
-                            default -> throw new IllegalStateException("Invalid type");
-                        };
-                        var attributes = new Hashtable<String,String>();
-                        attributes.put("Original Extension", set.getString("Extension"));
-                        attributes.put("Date Inserted", set.getString("Date"));
-                        attributes.put("Original Path", set.getString("Path"));
-                        attributes.put("File Size"    , set.getString("Size"));
-                        String data = set.getString("Data");
-                        results.add(new IMedia(name,type,data, attributes));
-                    }
-                    return results;
+        try(Statement query = DatabaseConn.getConn().createStatement()){
+            try(ResultSet set = query.executeQuery(Query)){
+                List<IMedia> results = new LinkedList<>();
+                while(set.next()){
+                    String name  = set.getString("Name");
+                    MediaType type  =  switch (set.getString("Type")) {
+                        case "Image" -> MediaType.Image;
+                        case "Video" -> MediaType.Video;
+                        case "Text"  -> MediaType.Text;
+                        case "Audio" -> MediaType.Audio;
+                        default -> throw new IllegalStateException("Invalid type");
+                    };
+                    var attributes = new Hashtable<String,String>();
+                    attributes.put("Original Extension", set.getString("Extension"));
+                    attributes.put("Date Inserted", set.getString("Date"));
+                    attributes.put("Original Path", set.getString("Path"));
+                    attributes.put("File Size"    , set.getString("Size"));
+                    String data = set.getString("Data");
+                    results.add(new IMedia(name,type,data, attributes));
                 }
+                return results;
             }
-        }
-        catch (Exception e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  new LinkedList<IMedia>();
+
+        return new LinkedList<>();
     }
     
     public static void insert(IMedia element){
@@ -55,13 +43,13 @@ public class DataBaseApi {
     } 
 
     public static void remove(IMedia element){
-        runQuery("DELETE FROM Medias WHERE "                  + 
+        runQuery("DELETE FROM Medias WHERE "                  +
                     "Name = " + element.getName()  + " AND "  + 
                     "Type = " +  element.getType().toString() );
     } 
 
     public static List<IMedia> Select(IMedia element){
-        return  runQuery("SELECT * FROM Medias WHERE " + 
+        return  runQuery("SELECT * FROM Medias WHERE " +
                              "Name = " + element.getName() + " AND "  + 
                              "Type =" +  element.getType().toString() );
     } 

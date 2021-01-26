@@ -35,12 +35,12 @@ public class IMedia {
 
     @Override
     public String toString(){
-        return    getName() + ", "
-                + getType().toString() + ", "
-                + getData() + ", "
-                + attributes.get("Date Inserted") + ", "
-                + attributes.get("Original Path") + ", "
+        return  "'" + getName() + "', "
+                + "'" + getType().toString() + "', "
+                + "'" + getData() + "', "
+                + "'" + attributes.get("Date Inserted") + "', "
+                + "'" + attributes.get("Original Path") + "', "
                 + attributes.get("File Size") + ", "
-                + attributes.get("Original Extension");
+                + "'" + attributes.get("Original Extension") + "'";
     }
 }
