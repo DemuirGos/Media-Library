@@ -8,15 +8,17 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import java.io.*;
 import MediaElements.*;
+import Utils.StringUtils;
+import java.util.List;
 
 public class PreviewPage extends JPanel {
 
     private enum Paths {
-        Image("src\\main\\java\\Icons\\ImageIcn.JPG"),
-        Video("src\\main\\java\\Icons\\VideoIcnJPG.JPG"),
-        Text("src\\main\\java\\Icons\\TextIcn.JPG"),
-        Audio("src\\main\\java\\Icons\\AudioIcn.JPG"),
-        Dummy("src\\main\\java\\Icons\\notFoundIcn.JPG");
+        Image(StringUtils.mkStringPath(List.of("src", "main", "java", "Icons", "ImageIcn.JPG"))),
+        Video(StringUtils.mkStringPath(List.of("src","main","java","Icons","VideoIcnJPG.JPG"))),
+        Text(StringUtils.mkStringPath(List.of("src","main","java","Icons","TextIcn.JPG"))),
+        Audio(StringUtils.mkStringPath(List.of("src","main","java","Icons","AudioIcn.JPG"))),
+        Dummy(StringUtils.mkStringPath(List.of("src","main","java","Icons","notFoundIcn.JPG")));
         
         private final String value;
         
