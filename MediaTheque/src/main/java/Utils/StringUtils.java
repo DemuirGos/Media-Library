@@ -5,12 +5,12 @@ import java.util.Base64;
 import java.util.List;
 
 public class StringUtils {
-    public static String encode(String str) {
-        return new String(Base64.getEncoder().encode(str.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+    public static String encode(byte[] byteData) {
+        return new String(Base64.getEncoder().encode(byteData));
     }
 
-    public static String decode(String str) {
-        return new String(Base64.getDecoder().decode(str.getBytes(StandardCharsets.UTF_8)));
+    public static byte[] decode(String str) {
+        return Base64.getDecoder().decode(str.getBytes());
     }
 
     public static String mkStringPath (List<String> l) {

@@ -5,24 +5,21 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class FileUtils {
-    public static String readFile(File f) {
-        StringBuilder strBld = new StringBuilder();
-        try (BufferedReader br =  new BufferedReader(new InputStreamReader(new FileInputStream(f), "Cp1252"))) {
-            int str;
-            while ((str = br.read()) != -1) {
-                strBld.append((char)str);
-            }
+    public static byte[] readFile(File f) {
+        byte data[] = new byte[(int)f.length()];
+        try (var fis =  new FileInputStream(f)) {
+            fis.read(data);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return strBld.toString();
+        return data;
     }
 
-    public static void writeFile(File file, String data) {
+    public static void writeFile(File file, byte[] data) {
             System.out.println(file.getAbsolutePath());
-            try(var writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "Cp1252"))){
-                writer.write(data);
+            try(var fos = new FileOutputStream(file)){
+                fos.write(data);
             } catch (IOException e) {
                 e.printStackTrace();
             }
