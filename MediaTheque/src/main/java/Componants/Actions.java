@@ -5,29 +5,32 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 
 public class Actions {
+    public enum EventType {
+        DeletionEvent,
+        SelectionEvent,
+        InsertionEvent,
+        OpenEvent,
+        ExportEvent;
+    }
+
     protected static class CustomEvent extends Observable {
+        protected CustomEvent(EventType type){
+            _type = type;
+        }
+        private EventType _type;
         public void Notify() {
             setChanged();
             notifyObservers();
         }
+        public EventType getType() {
+            return _type;
+        }
     }
 
-    public static class DeletionEvent extends CustomEvent {
-    }
-
-    public static class InsertionEvent extends CustomEvent {
-    }
-
-    public static class OpenEvent extends CustomEvent {
-    }
-
-    public static class ExportEvent extends CustomEvent {
-    }
-
-    protected static final DeletionEvent deletionEvent  = new DeletionEvent();
-    protected static final ExportEvent   exportEvent    = new ExportEvent();
-    protected static final OpenEvent     openEvent      = new OpenEvent();
-    protected static final InsertionEvent insertionEvent= new InsertionEvent();
+    protected static final CustomEvent deletionEvent  = new CustomEvent(EventType.DeletionEvent);
+    protected static final CustomEvent   exportEvent  = new CustomEvent(EventType.ExportEvent);
+    protected static final CustomEvent     openEvent  = new CustomEvent(EventType.OpenEvent);
+    protected static final CustomEvent insertionEvent = new CustomEvent(EventType.InsertionEvent);
 
     public static ActionListener importAct() {
         return e -> {
