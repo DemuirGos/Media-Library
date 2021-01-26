@@ -8,11 +8,20 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.DimensionUIResource;
+
+import Componants.Actions.CustomEvent;
+import Componants.Actions.EventType;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SideBar extends JPanel{
-    public static class SelectionEvent extends Observable {
+public class SideBar extends JPanel {
+    public static class SelectionEvent extends CustomEvent {
+        protected SelectionEvent(EventType type) {
+            super(type);
+            // TODO Auto-generated constructor stub
+        }
+
         public void setElement(IMedia element) {
             setChanged();
             notifyObservers(element);
@@ -20,7 +29,7 @@ public class SideBar extends JPanel{
     }
 
     // observable/parent
-    SelectionEvent SelectionEventHandler = new SelectionEvent();
+    SelectionEvent SelectionEventHandler = new SelectionEvent(EventType.SelectionEvent);
     Observer Parent;
 
     // search area
