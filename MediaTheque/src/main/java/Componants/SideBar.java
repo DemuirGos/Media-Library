@@ -12,6 +12,8 @@ import javax.swing.plaf.DimensionUIResource;
 import Componants.Actions.CustomEvent;
 import Componants.Actions.EventType;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -153,6 +155,14 @@ public class SideBar extends JPanel {
             SelectionEventHandler.setElement(selectedItem);
         });
 
+        itemsBar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Actions.openEvent.Notify();
+                }
+            }
+        });
     }
 
     private void Fill(ArrayList<IMedia> items) {
