@@ -7,7 +7,7 @@ import java.util.*;
 public class FileUtils {
     public static String readFile(File f) {
         StringBuilder strBld = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+        try (BufferedReader br =  new BufferedReader(new InputStreamReader(new FileInputStream(f), "Cp1252"))) {
             int str;
             while ((str = br.read()) != -1) {
                 strBld.append((char)str);
@@ -17,6 +17,15 @@ public class FileUtils {
         }
 
         return strBld.toString();
+    }
+
+    public static void writeFile(File file, String data) {
+            System.out.println(file.getAbsolutePath());
+            try(var writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "Cp1252"))){
+                writer.write(data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     public static Map<String,String> getAttributes(File d) {
