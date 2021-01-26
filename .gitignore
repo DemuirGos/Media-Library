@@ -1,2 +1,27 @@
 .
 
+MediaTheque/.*
+MediaTheque/.ionide/symbolCache.db
+MediaTheque/.settings/org.eclipse.jdt.core.prefs
+MediaTheque/src/main/java/.ionide/symbolCache.db
+MediaTheque/target/classes/.ionide/symbolCache.db
+MediaTheque/target/classes/Componants/ImportPage.class
+MediaTheque/target/classes/Componants/MainPage.class
+MediaTheque/target/classes/Componants/MenuBar.class
+MediaTheque/target/classes/Componants/PreviewPage$JImage.class
+MediaTheque/target/classes/Componants/PreviewPage$Paths.class
+MediaTheque/target/classes/Componants/PreviewPage.class
+MediaTheque/target/classes/Componants/SideBar$1.class
+MediaTheque/target/classes/Componants/SideBar$2.class
+MediaTheque/target/classes/Componants/SideBar.class
+MediaTheque/target/classes/DataBaseBloat/DataBaseApi.class
+MediaTheque/target/classes/MediaElements/Audio.class
+MediaTheque/target/classes/MediaElements/Image.class
+MediaTheque/target/classes/MediaElements/IMedia.class
+MediaTheque/target/classes/MediaElements/MediaType.class
+MediaTheque/target/classes/MediaElements/Text.class
+MediaTheque/target/classes/MediaElements/Video.class
+MediaTheque/target/classes/MediaProject/App.class
+MediaTheque/target/classes/Utils/FileUtils.class
+MediaTheque/target/classes/Utils/StringUtils.class
+MediaTheque/target/test-classes/MediaProject/AppTest.class

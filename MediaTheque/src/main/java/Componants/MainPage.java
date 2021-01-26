@@ -9,6 +9,9 @@ import Utils.FileUtils;
 import Utils.StringUtils;
 
 import javax.swing.*;
+
+import Componants.Actions.*;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -73,22 +76,27 @@ public class MainPage extends JFrame implements Observer {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        DatabaseConn conn = new DatabaseConn();
+        //DatabaseConn conn = new DatabaseConn();
         new MainPage();
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o instanceof SideBar.SelectionEvent)
-        {
-            this.attributesBar.setItem(this.sideBar.getSelectedItem());
-        }
-        else if(o instanceof Actions.DeletionEvent){
-            DataBaseApiDummy.remove(this.sideBar.getSelectedItem());
-            this.sideBar.update() ;
-        }
-        else if(o instanceof Actions.ExportEvent){
-            try {
+        switch(((CustomEvent)o).getType()){
+            case SelectionEvent:
+            {
+                this.attributesBar.setItem(this.sideBar.getSelectedItem());
+                break;
+            }
+            case DeletionEvent:
+            {
+                DataBaseApiDummy.remove(this.sideBar.getSelectedItem());
+                this.sideBar.update() ;
+                break;
+            }
+            case ExportEvent:
+            {
+                try {
                     var selectedItem = this.sideBar.getSelectedItem();
                     var chooser = new JFileChooser(); 
                     chooser.setCurrentDirectory(new java.io.File("."));
@@ -106,8 +114,10 @@ public class MainPage extends JFrame implements Observer {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                break;
             }
-            else if(o instanceof Actions.OpenEvent){
+            case OpenEvent:
+            {
                 try {
                     var selectedItem = this.sideBar.getSelectedItem();
                     File file = File.createTempFile(selectedItem.getName(),"." + selectedItem.getAttributes().get("Original Extension"));
@@ -115,13 +125,16 @@ public class MainPage extends JFrame implements Observer {
                     Desktop desktop = Desktop.getDesktop();
                     if (file.exists())
                         desktop.open(file);
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                break;
             }
-        }
-        else if(o instanceof Actions.InsertionEvent){
-            System.out.println("inserting ");
-            this.sideBar.update();
+            case InsertionEvent:
+            {
+                System.out.println("inserting ");
+                this.sideBar.update();
+            }
         }
     }
 }

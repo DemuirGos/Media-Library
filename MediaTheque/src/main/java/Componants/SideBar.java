@@ -1,6 +1,7 @@
 package Componants;
 
-import DataBaseBloat.*;
+import DataBaseBloat.DataBaseApi;
+import DataBaseBloat.DataBaseApiDummy;
 import MediaElements.IMedia;
 
 import javax.swing.*;
@@ -102,6 +103,10 @@ public class SideBar extends JPanel{
         next.addActionListener(e -> {
             page++;
             Fill();
+            if(items.size()==0){
+                page--;
+                Fill();
+            }
         });
 
         prev.addActionListener(e -> {
