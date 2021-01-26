@@ -103,7 +103,7 @@ public class MainPage extends JFrame implements Observer {
 
             case ExportEvent -> {
                 try {
-                     var selectedItem = this.sideBar.getSelectedItem();
+                    var selectedItem = this.sideBar.getSelectedItem();
                     var chooser = new JFileChooser();
                     chooser.setCurrentDirectory(new File("."));
                     chooser.setDialogTitle("Chose a Location :");

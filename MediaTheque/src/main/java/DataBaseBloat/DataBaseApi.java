@@ -38,6 +38,10 @@ public class DataBaseApi {
         return new LinkedList<>();
     }
     
+    public static boolean exists(IMedia e){
+        return Select(e).size() > 0 ;
+    }
+
     public static void insert(IMedia element){
         runQuery("INSERT INTO Medias VALUES (" + element.toString() + ")");
     } 

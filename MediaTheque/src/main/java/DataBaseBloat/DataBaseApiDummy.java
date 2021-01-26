@@ -8,6 +8,13 @@ import MediaElements.*;
 public class DataBaseApiDummy {
     private static final List<IMedia> items = new LinkedList<IMedia>();
     
+    public static boolean exists(IMedia e){
+        for(var i : AllElements()){
+            if(i.getData().contentEquals(e.getData())) return true;
+        }
+        return false;
+    }
+
     public static void insert(IMedia e){
         items.add(e);
     } 

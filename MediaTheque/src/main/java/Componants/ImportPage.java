@@ -64,13 +64,19 @@ public class ImportPage extends JFrame {
             String[] splt = path.split("\\.");
             String ext = splt[splt.length - 1];
             String customName = new File(textField.getText()).getName();
-
-            DataBaseApiDummy.insert(new IMedia(customName + (customName.endsWith(ext) ? "" : "." + ext),
-                                            parseFileExt(file.getName()), 
-                                            StringUtils.encode(FileUtils.readFile(file)),
-                                            FileUtils.getAttributes(file) ));
-            Actions.insertionEvent.Notify();
-            this.dispose();
+            IMedia newItem = new IMedia(customName + (customName.endsWith(ext) ? "" : "." + ext),
+                                        parseFileExt(file.getName()), 
+                                        StringUtils.encode(FileUtils.readFile(file)),
+                                        FileUtils.getAttributes(file));
+            if(!DataBaseApiDummy.exists(newItem))
+            {
+                DataBaseApiDummy.insert(newItem);
+                Actions.insertionEvent.Notify();
+                this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "File Already in database");
+            }
         });
     }
 
