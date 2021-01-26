@@ -94,7 +94,7 @@ public class SideBar extends JPanel {
         layout.putConstraint(SpringLayout.NORTH, scrollableBar , 30, SpringLayout.SOUTH, searchBar);
         
         layout.putConstraint(SpringLayout.NORTH, global   , 10, SpringLayout.NORTH, this);
-        layout.putConstraint(SpringLayout.EAST , global   , 0, SpringLayout.EAST , scrollableBar);
+        layout.putConstraint(SpringLayout.EAST , global   , 3, SpringLayout.EAST , scrollableBar);
         
         layout.putConstraint(SpringLayout.NORTH, next     , 2, SpringLayout.SOUTH, searchBar);
         layout.putConstraint(SpringLayout.WEST , next     , 5, SpringLayout.WEST , this);
