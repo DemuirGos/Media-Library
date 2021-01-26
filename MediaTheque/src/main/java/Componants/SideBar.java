@@ -102,6 +102,10 @@ public class SideBar extends JPanel{
         next.addActionListener(e -> {
             page++;
             Fill();
+            if(items.size()==0){
+                page--;
+                Fill();
+            }
         });
 
         prev.addActionListener(e -> {
