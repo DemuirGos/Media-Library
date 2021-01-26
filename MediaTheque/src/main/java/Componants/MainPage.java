@@ -22,8 +22,7 @@ import java.util.Observer;
 public class MainPage extends JFrame implements Observer {
 
     private final SideBar sideBar = new SideBar(this);
-    private final PreviewPage attributesBar = new PreviewPage(
-            new IMedia("test", MediaType.Text, "rawr", FileUtils.getAttributes(23)));
+    private final PreviewPage attributesBar = new PreviewPage(IMedia.Init());
     protected static final JFileChooser chooser = new JFileChooser("$HOME");
     private final JButton importButton = new JButton("Import");
     private final JButton removeButton = new JButton("Delete");
@@ -104,7 +103,7 @@ public class MainPage extends JFrame implements Observer {
 
             case ExportEvent -> {
                 try {
-                    var selectedItem = this.sideBar.getSelectedItem();
+                     var selectedItem = this.sideBar.getSelectedItem();
                     var chooser = new JFileChooser();
                     chooser.setCurrentDirectory(new File("."));
                     chooser.setDialogTitle("Chose a Location :");

@@ -68,22 +68,4 @@ public class DataBaseApi {
         return items.stream().skip((long) (idx - 1) * quantity).limit(limit).collect(Collectors.toList());
     }
     
-    public static List<IMedia> Taketemp(int idx,int quantity){ //only for testing to be removed
-        List<IMedia> items = new LinkedList<>();
-        int i=0;
-        for(;i<quantity/4;i++){
-            items.add(new IMedia("test" + i,MediaType.Text,"rawr", FileUtils.getAttributes(i)));
-        }
-        for(;i<2*quantity/4;i++){
-            items.add(new IMedia("test" + i,MediaType.Audio,"rawr", FileUtils.getAttributes(i)));
-        }
-        for(;i<3*quantity/4;i++){
-            items.add(new IMedia("test" + i,MediaType.Video,"rawr", FileUtils.getAttributes(i)));
-        }
-        for(;i<4*quantity/4;i++){
-            items.add(new IMedia("test" + i,MediaType.Image,"rawr", FileUtils.getAttributes(i)));
-        }
-        return items;
-    }
-
 }

@@ -43,4 +43,13 @@ public class IMedia {
                 + attributes.get("File Size") + ", "
                 + "'" + attributes.get("Original Extension") + "'";
     }
+
+    public static IMedia Init(){
+        var attributes = new Hashtable<String,String>();
+        attributes.put("Original Extension", "Empty");
+        attributes.put("Date Inserted", "00/00/00 00h00m00s");
+        attributes.put("Original Path", "Empty");
+        attributes.put("File Size", "Empty");
+        return new IMedia("test", MediaType.Error, "rawr",attributes);
+    }
 }

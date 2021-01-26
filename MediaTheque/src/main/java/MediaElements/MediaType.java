@@ -4,5 +4,6 @@ public enum MediaType {
     Audio,
     Text,
     Image,
-    Video
+    Video,
+    Error
 }

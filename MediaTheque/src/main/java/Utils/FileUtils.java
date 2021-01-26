@@ -35,14 +35,4 @@ public class FileUtils {
         attributes.put("File Size", String.valueOf(d.length()));
         return attributes;
     }
-
-    
-    public static Map<String,String> getAttributes(int i) { // only for testing to be removed use getAttributes(File d) instead 
-        var attributes = new Hashtable<String,String>();
-        attributes.put("Original Extension", "mp4" + i);
-        attributes.put("Date Inserted", "01/01/000" + i);
-        attributes.put("Original Path", "/root/rooter/rooster/" + i);
-        attributes.put("File Size", i + "mb");
-        return attributes;
-    }
 }
