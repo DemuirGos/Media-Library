@@ -83,6 +83,8 @@ public class MainPage extends JFrame implements Observer {
         importButton.addActionListener(Actions.importAct());
         removeButton.addActionListener(Actions.deleteAct());
         chooser.addActionListener(Actions.chooserAct());
+        openButton.addActionListener(Actions.openAct());
+        exportButton.addActionListener(Actions.exportAct());
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
