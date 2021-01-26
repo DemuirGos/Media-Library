@@ -16,10 +16,14 @@ import java.util.List;
 
 public class ImportPage extends JFrame {
     private static final List<FileNameExtensionFilter> filters = List.of(
-                        new FileNameExtensionFilter("Image", "jpg", "png", "gif", "jpeg"),
-                        new FileNameExtensionFilter("Video", "amv", "mp4", "avi", "flv", "wmv"),
-                        new FileNameExtensionFilter("Texte", "txt", "docx", "pdf", "csv"),
-                        new FileNameExtensionFilter("Audio", "mp3", "wav", "wv", "flac"));
+                                new FileNameExtensionFilter("Video", "amv", "mp4", "avi", "flv", "wmv"),
+                                new FileNameExtensionFilter("Texte", "txt", "docx", "pdf", "csv"),
+                                new FileNameExtensionFilter("Audio", "mp3", "wav", "wv", "flac"),
+                                new FileNameExtensionFilter("Image", "jpg", "png", "gif", "jpeg"),
+                                new FileNameExtensionFilter("All", "jpg", "png", "gif", "jpeg",
+                                                            "amv", "mp4", "avi", "flv", "wmv",
+                                                            "txt", "docx", "pdf", "csv",
+                                                            "mp3", "wav", "wv", "flac"));
 
     private final List<String> imgExt = List.of("jpg", "png", "gif", "jpeg");
     private final List<String> vidExt = List.of("amv", "mp4", "avi", "flv", "wmv");
@@ -61,13 +65,12 @@ public class ImportPage extends JFrame {
         saveButton.addActionListener(e -> {
             File file = new File(path);
 
-            String[] splt = path.split("\\.");
-            String ext = splt[splt.length - 1];
             String customName = new File(textField.getText()).getName();
-            IMedia newItem = new IMedia(customName + (customName.endsWith(ext) ? "" : "." + ext),
+            IMedia newItem = new IMedia(customName,
                                         parseFileExt(file.getName()), 
                                         StringUtils.encode(FileUtils.readFile(file)),
                                         FileUtils.getAttributes(file));
+            
             if(!DataBaseApiDummy.exists(newItem))
             {
                 DataBaseApiDummy.insert(newItem);

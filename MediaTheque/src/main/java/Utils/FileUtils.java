@@ -32,7 +32,7 @@ public class FileUtils {
         attributes.put("Original Extension", name.substring(name.lastIndexOf(".") + 1));
         attributes.put("Date Inserted", formatter.format(new Date()));
         attributes.put("Original Path", d.getPath());
-        attributes.put("File Size", String.valueOf(d.length()));
+        attributes.put("File Size", String.valueOf(d.length()/1024));
         return attributes;
     }
 }

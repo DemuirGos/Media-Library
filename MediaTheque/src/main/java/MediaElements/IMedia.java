@@ -50,6 +50,6 @@ public class IMedia {
         attributes.put("Date Inserted", "00/00/00 00h00m00s");
         attributes.put("Original Path", "Empty");
         attributes.put("File Size", "Empty");
-        return new IMedia("test", MediaType.Error, "rawr",attributes);
+        return new IMedia("Selected Item", MediaType.Error, "0x00000000",attributes);
     }
 }

@@ -29,7 +29,7 @@ public class MainPage extends JFrame implements Observer {
     private final JButton exportButton = new JButton("Export");
     private final JButton openButton = new JButton("Open");
 
-    MainPage() {
+    public MainPage() {
         SpringLayout layout = new SpringLayout();
 
         this.setLayout(layout);
@@ -85,12 +85,7 @@ public class MainPage extends JFrame implements Observer {
         openButton.addActionListener(Actions.openAct());
         exportButton.addActionListener(Actions.exportAct());
     }
-
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        //DatabaseConn conn = new DatabaseConn();
-        new MainPage();
-    }
-
+    
     @Override
     public void update(Observable o, Object arg) {
         switch (((CustomEvent) o).getType()) {
@@ -135,7 +130,6 @@ public class MainPage extends JFrame implements Observer {
             }
 
             case InsertionEvent -> {
-                System.out.println("inserting ");
                 this.sideBar.update();
             }
         }

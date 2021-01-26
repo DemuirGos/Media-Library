@@ -118,7 +118,7 @@ public class PreviewPage extends JPanel {
         icon = new JImage(new File(Paths.Dummy.value));
         
         titleComponent = new JTextField(localElement.getName() + " :");
-        titleComponent.setPreferredSize(new DimensionUIResource(100, 40));
+        titleComponent.setPreferredSize(new DimensionUIResource(250, 40));
         titleComponent.setEditable(false);
         titleComponent.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         
@@ -138,24 +138,22 @@ public class PreviewPage extends JPanel {
     }
 
     private void Fill(){
+        titleComponent.setText(localElement.getName() + " :");
         icon.Update(new File(
-                            switch (localElement.getType()) {
-                                                    case Audio -> Paths.Audio.value;
-                                                    case Image -> Paths.Image.value;
-                                                    case Video -> Paths.Video.value;
-                                                    case Text  -> Paths.Text.value ;
-                                    default -> Paths.Dummy.value;
-        }));
+                    switch (localElement.getType()) {
+                                            case Audio -> Paths.Audio.value;
+                                            case Image -> Paths.Image.value;
+                                            case Video -> Paths.Video.value;
+                                            case Text  -> Paths.Text.value ;
+                            default -> Paths.Dummy.value; }));
         attributesList.removeAll();
         attributesList.revalidate();
         attributesList.repaint();
         GridLayout layout = new GridLayout(localElement.getAttributes().size() + 1, 2);
         this.attributesList.setLayout(layout);
         for(var att : localElement.getAttributes().keySet()){
-            JLabel title = new JLabel(att);
-            JTextField value = new JTextField(localElement.getAttributes().get(att));
-            this.attributesList.add(title);
-            this.attributesList.add(value);
+            this.attributesList.add(new JLabel(att));
+            this.attributesList.add(new JTextField(localElement.getAttributes().get(att) + (att=="File Size"?" kb":"")));
         }
     }
 }
