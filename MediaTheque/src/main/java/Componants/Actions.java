@@ -1,9 +1,6 @@
 package Componants;
 
 import javax.swing.*;
-
-import MediaElements.IMedia;
-
 import java.awt.event.ActionListener;
 import java.util.Observable;
 

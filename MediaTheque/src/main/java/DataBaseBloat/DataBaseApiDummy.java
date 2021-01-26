@@ -6,7 +6,7 @@ import java.util.stream.*;
 import MediaElements.*;
 
 public class DataBaseApiDummy {
-    private static List<IMedia> items = new LinkedList<IMedia>();
+    private static final List<IMedia> items = new LinkedList<IMedia>();
     
     public static void insert(IMedia e){
         items.add(e);
@@ -23,10 +23,10 @@ public class DataBaseApiDummy {
     public static List<IMedia> Take(int idx,int quantity){
         int itemsCount = items.size();
         if((idx-1) * quantity > itemsCount ){
-            return new LinkedList<IMedia>();
+            return new LinkedList<>();
         }
         int limit = Math.min(itemsCount - (idx-1)*quantity,quantity);
-        return items.stream().skip((idx -1) * quantity).limit(limit).collect(Collectors.toList());
+        return items.stream().skip((long) (idx - 1) * quantity).limit(limit).collect(Collectors.toList());
     }
 
 }

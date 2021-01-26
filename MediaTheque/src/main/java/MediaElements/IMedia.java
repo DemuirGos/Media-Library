@@ -5,10 +5,10 @@ import java.util.*;
 //Medias Schema : Name Type Data Date Path Size Extension
 
 public class IMedia {
-    private String name;
-    private MediaType type;
-    private String raw;
-    private Map<String, String> attributes; 
+    private final String name;
+    private final MediaType type;
+    private final String raw;
+    private final Map<String, String> attributes;
 
     public IMedia(String name, MediaType type, String raw, Map<String, String> dictionary){
         this.raw = raw;

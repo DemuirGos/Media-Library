@@ -1,24 +1,17 @@
 package Componants;
 
 
-import DataBaseBloat.DataBaseApi;
+import DataBaseBloat.DataBaseApiDummy;
 import DataBaseBloat.DatabaseConn;
 import MediaElements.IMedia;
 import MediaElements.MediaType;
 import Utils.FileUtils;
-
-import java.util.Observable;
-import java.util.Observer;
-import javax.swing.*;
-import java.io.*;
-import java.awt.Desktop;
-
-import DataBaseBloat.*;
-import MediaElements.*;
-import Utils.*;
-
+import Utils.StringUtils;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;

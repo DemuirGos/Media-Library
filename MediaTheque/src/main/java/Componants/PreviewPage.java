@@ -142,7 +142,7 @@ public class PreviewPage extends JPanel {
                                                     case Image -> Paths.Image.value;
                                                     case Video -> Paths.Video.value;
                                                     case Text  -> Paths.Text.value ;
-                                default -> Paths.Dummy.value;
+                                    default -> Paths.Dummy.value;
         }));
         attributesList.removeAll();
         attributesList.revalidate();
