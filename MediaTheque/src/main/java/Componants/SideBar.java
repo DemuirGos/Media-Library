@@ -38,6 +38,7 @@ public class SideBar extends JPanel {
 
     // items area
     private JList<String> itemsBar;
+    JScrollPane scrollableBar;
     DefaultListModel<String> model;
     private JButton next;
     private JButton prev;
@@ -69,7 +70,8 @@ public class SideBar extends JPanel {
         
         model = new DefaultListModel<>(); 
         itemsBar = new JList<>(model);
-        itemsBar.setPreferredSize(new DimensionUIResource(245, 455));
+        scrollableBar = new JScrollPane(itemsBar);  
+        scrollableBar.setPreferredSize(new DimensionUIResource(245, 455));
         itemsBar.setFixedCellHeight(35);
         itemsBar.setFixedCellWidth(450);
 
@@ -88,20 +90,20 @@ public class SideBar extends JPanel {
         layout.putConstraint(SpringLayout.WEST, searchBar, 5, SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.NORTH, searchBar, 5, SpringLayout.NORTH, this);
         
-        layout.putConstraint(SpringLayout.WEST , itemsBar , 5, SpringLayout.WEST , searchBar );
-        layout.putConstraint(SpringLayout.NORTH, itemsBar , 30, SpringLayout.SOUTH, searchBar);
+        layout.putConstraint(SpringLayout.WEST , scrollableBar , 0, SpringLayout.WEST , searchBar );
+        layout.putConstraint(SpringLayout.NORTH, scrollableBar , 30, SpringLayout.SOUTH, searchBar);
         
         layout.putConstraint(SpringLayout.NORTH, global   , 10, SpringLayout.NORTH, this);
-        layout.putConstraint(SpringLayout.EAST , global   , 0, SpringLayout.EAST , itemsBar);
+        layout.putConstraint(SpringLayout.EAST , global   , 0, SpringLayout.EAST , scrollableBar);
         
         layout.putConstraint(SpringLayout.NORTH, next     , 2, SpringLayout.SOUTH, searchBar);
         layout.putConstraint(SpringLayout.WEST , next     , 5, SpringLayout.WEST , this);
         
         layout.putConstraint(SpringLayout.NORTH, prev     , 2, SpringLayout.SOUTH, searchBar);
-        layout.putConstraint(SpringLayout.EAST , prev     , 0, SpringLayout.EAST , itemsBar);
+        layout.putConstraint(SpringLayout.EAST , prev     , 0, SpringLayout.EAST , scrollableBar);
 
         this.add(searchBar);
-        this.add(itemsBar);
+        this.add(scrollableBar);
         this.add(next);
         this.add(prev);
         this.add(global);
