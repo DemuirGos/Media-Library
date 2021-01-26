@@ -1,6 +1,6 @@
 package Componants;
 
-import DataBaseBloat.DataBaseApi;
+import DataBaseBloat.*;
 import MediaElements.IMedia;
 
 import javax.swing.*;
@@ -147,7 +147,7 @@ public class SideBar extends JPanel{
     }
 
     private void Fill() {
-        items = new ArrayList<>(DataBaseBloat.DataBaseApi.Taketemp(page, 13));// to change to Take
+        items = new ArrayList<>(DataBaseBloat.DataBaseApiDummy.Take(page, 13));// to change to DataBaseApi
         Fill(items);
     }
 
@@ -156,7 +156,7 @@ public class SideBar extends JPanel{
         ArrayList<IMedia> foundItems;
 
         if (this.isGlobal) {
-            foundItems = DataBaseApi.AllElements().stream().filter(itm -> itm.getName().contains(word)).collect(Collectors.toCollection(ArrayList::new));
+            foundItems = DataBaseApiDummy.AllElements().stream().filter(itm -> itm.getName().contains(word)).collect(Collectors.toCollection(ArrayList::new));
         } else {
             foundItems = this.items.stream().filter(itm -> itm.getName().contains(word)).collect(Collectors.toCollection(ArrayList::new));
         }

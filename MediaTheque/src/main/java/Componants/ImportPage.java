@@ -1,10 +1,12 @@
 package Componants;
 
-import DataBaseBloat.DataBaseApi;
+import DataBaseBloat.DataBaseApiDummy;
 import MediaElements.IMedia;
 import MediaElements.MediaType;
 import Utils.FileUtils;
 import Utils.StringUtils;
+
+import Componants.Actions.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
@@ -56,10 +58,12 @@ public class ImportPage extends JFrame {
     public void setSaveButton () {
         saveButton.addActionListener(e -> {
             File file = new File(textField.getText());
-            DataBaseApi.insert(new IMedia(  file.getName(), 
+            DataBaseApiDummy.insert(new IMedia(  file.getName(), 
                                             parseFileExt(file.getName()), 
                                             StringUtils.encode(FileUtils.readFile(file)),
                                             FileUtils.getAttributes(file) ));
+            Actions.insertionEvent.Notify();
+            this.dispose();
         });
     }
 

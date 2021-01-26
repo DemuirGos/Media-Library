@@ -1,10 +1,22 @@
 package Componants;
 
+
 import DataBaseBloat.DataBaseApi;
 import DataBaseBloat.DatabaseConn;
 import MediaElements.IMedia;
 import MediaElements.MediaType;
 import Utils.FileUtils;
+
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.*;
+import java.io.*;
+import java.awt.Desktop;
+
+import DataBaseBloat.*;
+import MediaElements.*;
+import Utils.*;
+
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -57,6 +69,10 @@ public class MainPage extends JFrame implements Observer {
 
     private void setElems () {
         Actions.deletionEvent.addObserver(this);
+        Actions.openEvent.addObserver(this);
+        Actions.exportEvent.addObserver(this);
+        Actions.deletionEvent.addObserver(this);
+        Actions.insertionEvent.addObserver(this);
         ImportPage.getFilters().forEach(chooser::setFileFilter);
         importButton.addActionListener(Actions.importAct());
         removeButton.addActionListener(Actions.deleteAct());
@@ -71,10 +87,48 @@ public class MainPage extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof SideBar.SelectionEvent)
+        {
             this.attributesBar.setItem(this.sideBar.getSelectedItem());
+        }
         else if(o instanceof Actions.DeletionEvent){
-            DataBaseApi.remove(this.sideBar.getSelectedItem());
+            DataBaseApiDummy.remove(this.sideBar.getSelectedItem());
             this.sideBar.update() ;
+        }
+        else if(o instanceof Actions.ExportEvent){
+            try {
+                    var selectedItem = this.sideBar.getSelectedItem();
+                    var chooser = new JFileChooser(); 
+                    chooser.setCurrentDirectory(new java.io.File("."));
+                    chooser.setDialogTitle("Chose a Location :");
+                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    chooser.setAcceptAllFileFilterUsed(false);
+                    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
+                        var location = chooser.getSelectedFile();
+                        File file = File.createTempFile(selectedItem.getName(),"." + selectedItem.getAttributes().get("Original Extension"),location);
+                        FileUtils.writeFile(file, StringUtils.decode(selectedItem.getData()));
+                    }
+                    else {
+                        System.out.println("No Selection ");
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            else if(o instanceof Actions.OpenEvent){
+                try {
+                    var selectedItem = this.sideBar.getSelectedItem();
+                    File file = File.createTempFile(selectedItem.getName(),"." + selectedItem.getAttributes().get("Original Extension"));
+                    FileUtils.writeFile(file, StringUtils.decode(selectedItem.getData()));
+                    Desktop desktop = Desktop.getDesktop();
+                    if (file.exists())
+                        desktop.open(file);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        else if(o instanceof Actions.InsertionEvent){
+            System.out.println("inserting ");
+            this.sideBar.update();
         }
     }
 }
