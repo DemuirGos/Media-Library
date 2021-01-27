@@ -44,6 +44,8 @@ public class ImportPage extends JFrame {
         this.path = path;
         SpringLayout layout = new SpringLayout();
 
+        setResizable(false);
+
         browse = new JButton("+");
         browse.setPreferredSize(new DimensionUIResource(30, 30));
 
@@ -60,7 +62,7 @@ public class ImportPage extends JFrame {
 
         textField.setPreferredSize(new DimensionUIResource(275, 30));
 
-        layout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, this);
+        layout.putConstraint(SpringLayout.WEST, label, 15, SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.NORTH, label, 20, SpringLayout.NORTH, this);
         layout.putConstraint(SpringLayout.WEST, textField, 5, SpringLayout.EAST, label);
         layout.putConstraint(SpringLayout.NORTH, textField, 0, SpringLayout.NORTH, label);
