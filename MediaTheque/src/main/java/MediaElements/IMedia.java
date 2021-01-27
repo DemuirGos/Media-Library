@@ -35,11 +35,11 @@ public class IMedia {
 
     @Override
     public String toString(){
-        return  "'" + getName() + "', "
+        return  "'" + getName().replaceAll("'", "''") + "', "
                 + "'" + getType().toString() + "', "
                 + "'" + getData() + "', "
                 + "'" + attributes.get("Date Inserted") + "', "
-                + "'" + attributes.get("Original Path") + "', "
+                + "'" + attributes.get("Original Path").replaceAll("'", "''") + "', "
                 + attributes.get("File Size") + ", "
                 + "'" + attributes.get("Original Extension") + "'";
     }

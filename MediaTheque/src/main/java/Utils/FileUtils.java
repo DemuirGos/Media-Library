@@ -6,7 +6,7 @@ import java.util.*;
 
 public class FileUtils {
     public static byte[] readFile(File f) {
-        byte data[] = new byte[(int)f.length()];
+        byte[] data = new byte[(int)f.length()];
         try (var fis =  new FileInputStream(f)) {
             fis.read(data);
         } catch (Exception e) {

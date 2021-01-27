@@ -1,9 +1,13 @@
 package DataBaseBloat;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.*;
 import java.util.stream.*;
 
+import Componants.ImportPage;
 import MediaElements.*;
 import Utils.FileUtils;
 
@@ -19,10 +23,7 @@ public class DataBaseApi {
         String password = "";
         String user = "silverest";
         String dbLocation = "jdbc:mysql://0.0.0.0:3306/MEDIATHEQUE";
-        Connection conn = DriverManager.getConnection(dbLocation, user, password);
-        if (conn != null)
-            System.out.println(true);
-        return conn;
+        return DriverManager.getConnection(dbLocation, user, password);
     }
 
     private static List<IMedia> runQuery(String Query){
@@ -60,20 +61,19 @@ public class DataBaseApi {
     }
 
     public static void insert(IMedia element) throws SQLException {
-        Statement q = conn.createStatement();
-        q.executeQuery("INSERT INTO Medias VALUES (" + element.toString() + ")");
-    } 
+        runQuery("INSERT INTO Medias VALUES (" + element.toString() + ")");
+    }
 
     public static void remove(IMedia element){
         runQuery("DELETE FROM Medias WHERE "                  +
-                    "name = '" + element.getName()  + "' AND "  +
+                    "name = '" + element.getName().replaceAll("'", "''")  + "' AND "  +
                     "type = '" +  element.getType().toString() + "'");
     } 
 
     public static List<IMedia> Select(IMedia element){
         return  runQuery("SELECT * FROM Medias WHERE " +
-                             "name = '" + element.getName() + "' AND "  +
-                             "type = '" +  element.getType().toString() + "';");
+                             "name = '" + element.getName().replaceAll("'", "''") + "' AND "  +
+                             "type = '" +  element.getType().toString() + "'");
     } 
 
     public static List<IMedia> AllElements(){
