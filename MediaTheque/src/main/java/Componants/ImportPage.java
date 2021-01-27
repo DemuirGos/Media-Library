@@ -34,11 +34,12 @@ public class ImportPage extends JFrame {
     private final JTextField textField;
     private final JButton saveButton;
     private final JButton cancelButton;
-    private final String path;
-    private JTextField originalLabel;
+    private String path;
+    private final JTextField originalLabel;
     private final JLabel label;
     private final JLabel pathLab;
     private final JButton browse;
+    private final JFileChooser chooser;
 
     ImportPage(String path) {
         this.path = path;
@@ -46,6 +47,8 @@ public class ImportPage extends JFrame {
 
         setResizable(false);
 
+        chooser = new JFileChooser();
+        chooser.setFileFilter(MainPage.chooser.getFileFilter());
         browse = new JButton("+");
         browse.setPreferredSize(new DimensionUIResource(30, 30));
 
@@ -91,7 +94,6 @@ public class ImportPage extends JFrame {
         this.add(pathLab);
         this.add(browse);
         this.setVisible(true);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public void setSaveButton() {
@@ -120,10 +122,9 @@ public class ImportPage extends JFrame {
 
     private void setBrowseButton() {
         browse.addActionListener(e -> {
-            if(MainPage.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-                this.dispose();
-                Actions.chooserAct();
-            }
+            chooser.showOpenDialog(null);
+            path = chooser.getSelectedFile().getAbsolutePath();
+            originalLabel.setText(path);
         });
     }
 
