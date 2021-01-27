@@ -88,7 +88,7 @@ public class PreviewPage extends JPanel {
     }
 
     private void buildPage () {
-        this.setPreferredSize(new DimensionUIResource(485, 500));
+        this.setPreferredSize(new DimensionUIResource(485, 495));
         InitializeComponants();
         this.setLayout(layout);
         SetupLayout();
