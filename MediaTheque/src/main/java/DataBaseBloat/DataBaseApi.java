@@ -39,11 +39,11 @@ public class DataBaseApi {
                         default -> throw new IllegalStateException("Invalid type");
                     };
                     var attributes = new Hashtable<String,String>();
-                    attributes.put("Original Extension", set.getString("Extension"));
-                    attributes.put("Date Inserted", set.getString("Date"));
-                    attributes.put("Original Path", set.getString("Path"));
-                    attributes.put("File Size"    , set.getString("Size"));
-                    String data = set.getString("Data");
+                    attributes.put("Original Extension", set.getString("ext"));
+                    attributes.put("Date Inserted", set.getString("date"));
+                    attributes.put("Original Path", set.getString("path"));
+                    attributes.put("File Size"    , set.getString("size"));
+                    String data = set.getString("data");
                     results.add(new IMedia(name,type,data, attributes));
                 }
                 return results;
@@ -59,20 +59,21 @@ public class DataBaseApi {
         return Select(e).size() > 0 ;
     }
 
-    public static void insert(IMedia element){
-        runQuery("INSERT INTO Medias VALUES (" + element.toString() + ")");
+    public static void insert(IMedia element) throws SQLException {
+        Statement q = conn.createStatement();
+        q.executeQuery("INSERT INTO Medias VALUES (" + element.toString() + ")");
     } 
 
     public static void remove(IMedia element){
         runQuery("DELETE FROM Medias WHERE "                  +
-                    "Name = " + element.getName()  + " AND "  + 
-                    "Type = " +  element.getType().toString() );
+                    "name = '" + element.getName()  + "' AND "  +
+                    "type = '" +  element.getType().toString() + "'");
     } 
 
     public static List<IMedia> Select(IMedia element){
         return  runQuery("SELECT * FROM Medias WHERE " +
-                             "Name = " + element.getName() + " AND "  + 
-                             "Type =" +  element.getType().toString() );
+                             "name = '" + element.getName() + "' AND "  +
+                             "type = '" +  element.getType().toString() + "';");
     } 
 
     public static List<IMedia> AllElements(){

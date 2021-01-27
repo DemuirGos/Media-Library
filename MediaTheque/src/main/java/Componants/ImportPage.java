@@ -1,13 +1,10 @@
 package Componants;
 
 import DataBaseBloat.DataBaseApi;
-import DataBaseBloat.DataBaseApiDummy;
 import MediaElements.IMedia;
 import MediaElements.MediaType;
 import Utils.FileUtils;
 import Utils.StringUtils;
-
-import Componants.Actions.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
@@ -109,6 +106,7 @@ public class ImportPage extends JFrame {
                     FileUtils.getAttributes(file));
 
             if (!DataBaseApi.exists(newItem)) {
+
                 try {
                     DataBaseApi.insert(newItem);
                 } catch (SQLException throwables) {

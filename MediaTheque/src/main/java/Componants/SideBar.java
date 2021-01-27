@@ -20,7 +20,6 @@ public class SideBar extends JPanel {
     public static class SelectionEvent extends CustomEvent {
         protected SelectionEvent(EventType type) {
             super(type);
-            // TODO Auto-generated constructor stub
         }
 
         public void setElement(IMedia element) {
