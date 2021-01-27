@@ -1,10 +1,8 @@
 package Componants;
 
-import DataBaseBloat.DataBaseApiDummy;
-import MediaElements.IMedia;
-import MediaElements.MediaType;
-import Utils.FileUtils;
-import Utils.StringUtils;
+import DataBaseBloat.DataBaseApi;
+import MediaElements.*;
+import Utils.*;
 
 import Componants.Actions.*;
 
@@ -106,8 +104,8 @@ public class ImportPage extends JFrame {
                     parseFileExt(file.getName()), StringUtils.encode(FileUtils.readFile(file)),
                     FileUtils.getAttributes(file));
 
-            if (!DataBaseApiDummy.exists(newItem)) {
-                DataBaseApiDummy.insert(newItem);
+            if (!DataBaseApi.exists(newItem)) {
+                DataBaseApi.insert(newItem);
                 Actions.insertionEvent.Notify();
                 this.dispose();
             } else {

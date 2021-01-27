@@ -1,7 +1,6 @@
 package Componants;
 
 import DataBaseBloat.DataBaseApi;
-import DataBaseBloat.DataBaseApiDummy;
 import MediaElements.IMedia;
 
 import javax.swing.*;
@@ -21,7 +20,6 @@ public class SideBar extends JPanel {
     public static class SelectionEvent extends CustomEvent {
         protected SelectionEvent(EventType type) {
             super(type);
-            // TODO Auto-generated constructor stub
         }
 
         public void setElement(IMedia element) {
@@ -173,7 +171,7 @@ public class SideBar extends JPanel {
     }
 
     private void Fill() {
-        items = new ArrayList<>(DataBaseBloat.DataBaseApiDummy.Take(page, 13));// to change to DataBaseApi
+        items = new ArrayList<>(DataBaseBloat.DataBaseApi.Take(page, 13));// to change to DataBaseApi
         Fill(items);
     }
 
@@ -182,7 +180,7 @@ public class SideBar extends JPanel {
         ArrayList<IMedia> foundItems;
 
         if (this.isGlobal) {
-            foundItems = DataBaseApiDummy.AllElements().stream().filter(itm -> itm.getName().contains(word)).collect(Collectors.toCollection(ArrayList::new));
+            foundItems = DataBaseApi.AllElements().stream().filter(itm -> itm.getName().contains(word)).collect(Collectors.toCollection(ArrayList::new));
         } else {
             foundItems = this.items.stream().filter(itm -> itm.getName().contains(word)).collect(Collectors.toCollection(ArrayList::new));
         }

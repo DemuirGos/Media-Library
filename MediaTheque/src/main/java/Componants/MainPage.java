@@ -1,8 +1,7 @@
 package Componants;
 
 
-import DataBaseBloat.DataBaseApiDummy;
-import DataBaseBloat.DatabaseConn;
+import DataBaseBloat.DataBaseApi;
 import MediaElements.IMedia;
 import MediaElements.MediaType;
 import Utils.FileUtils;
@@ -28,6 +27,7 @@ public class MainPage extends JFrame implements Observer {
     private final JButton removeButton = new JButton("Delete");
     private final JButton exportButton = new JButton("Export");
     private final JButton openButton = new JButton("Open");
+    private final MenuBar menuBar;
 
     public MainPage() {
         SpringLayout layout = new SpringLayout();
@@ -35,7 +35,8 @@ public class MainPage extends JFrame implements Observer {
         this.setLayout(layout);
         this.setSize(800, 600);
 
-        MenuBar menuBar = new MenuBar(this);
+        menuBar = new MenuBar(this);
+
         layout.putConstraint(SpringLayout.NORTH, menuBar, 3, SpringLayout.NORTH, this);
         layout.putConstraint(SpringLayout.WEST, menuBar, 3, SpringLayout.WEST, this);
 
@@ -92,7 +93,7 @@ public class MainPage extends JFrame implements Observer {
             case SelectionEvent -> this.attributesBar.setItem(this.sideBar.getSelectedItem());
 
             case DeletionEvent -> {
-                DataBaseApiDummy.remove(this.sideBar.getSelectedItem());
+                DataBaseApi.remove(this.sideBar.getSelectedItem());
                 this.sideBar.update();
             }
 
