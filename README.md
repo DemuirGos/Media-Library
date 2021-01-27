@@ -1,2 +1,7 @@
 # Exams
-the branches have are the two projects lol 
+## features :
+### Import files : images, texts, videos, audios
+### exrpot files from DataBase
+## used :
+### Java/Swing
+### MySql
