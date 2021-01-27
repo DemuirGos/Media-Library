@@ -3,15 +3,13 @@ package Componants;
 import Componants.Actions.CustomEvent;
 import DataBaseBloat.DataBaseApi;
 import MediaElements.IMedia;
-import Utils.FileUtils;
-import Utils.StringUtils;
+import Utils.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 public class MainPage extends JFrame implements Observer {
 

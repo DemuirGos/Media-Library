@@ -4,12 +4,10 @@ import DataBaseBloat.DataBaseApi;
 import MediaElements.IMedia;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.event.*;
 import javax.swing.plaf.DimensionUIResource;
 
-import Componants.Actions.CustomEvent;
-import Componants.Actions.EventType;
+import Componants.Actions.*;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -1,10 +1,8 @@
 package Componants;
 
 import DataBaseBloat.DataBaseApi;
-import MediaElements.IMedia;
-import MediaElements.MediaType;
-import Utils.FileUtils;
-import Utils.StringUtils;
+import MediaElements.*;
+import Utils.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
