@@ -1,5 +1,6 @@
 package Componants;
 
+import DataBaseBloat.DataBaseApi;
 import DataBaseBloat.DataBaseApiDummy;
 import MediaElements.IMedia;
 import MediaElements.MediaType;
@@ -13,6 +14,7 @@ import javax.swing.filechooser.*;
 import javax.swing.plaf.DimensionUIResource;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ImportPage extends JFrame {
@@ -106,8 +108,12 @@ public class ImportPage extends JFrame {
                     parseFileExt(file.getName()), StringUtils.encode(FileUtils.readFile(file)),
                     FileUtils.getAttributes(file));
 
-            if (!DataBaseApiDummy.exists(newItem)) {
-                DataBaseApiDummy.insert(newItem);
+            if (!DataBaseApi.exists(newItem)) {
+                try {
+                    DataBaseApi.insert(newItem);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 Actions.insertionEvent.Notify();
                 this.dispose();
             } else {

@@ -1,21 +1,16 @@
 package Componants;
 
 
-import DataBaseBloat.DataBaseApiDummy;
-import DataBaseBloat.DatabaseConn;
+import Componants.Actions.CustomEvent;
+import DataBaseBloat.DataBaseApi;
 import MediaElements.IMedia;
-import MediaElements.MediaType;
 import Utils.FileUtils;
 import Utils.StringUtils;
 
 import javax.swing.*;
-
-import Componants.Actions.*;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -92,7 +87,7 @@ public class MainPage extends JFrame implements Observer {
             case SelectionEvent -> this.attributesBar.setItem(this.sideBar.getSelectedItem());
 
             case DeletionEvent -> {
-                DataBaseApiDummy.remove(this.sideBar.getSelectedItem());
+                DataBaseApi.remove(this.sideBar.getSelectedItem());
                 this.sideBar.update();
             }
 
