@@ -33,9 +33,7 @@ public class Actions {
     protected static final CustomEvent insertionEvent = new CustomEvent(EventType.InsertionEvent);
 
     public static ActionListener importAct() {
-        return e -> {
-            MainPage.chooser.showOpenDialog(null);
-        };
+        return e -> MainPage.chooser.showOpenDialog(null);
     }
 
     public static ActionListener deleteAct() {

@@ -8,8 +8,25 @@ import MediaElements.*;
 import Utils.FileUtils;
 
 public class DataBaseApi {
+    private static Connection conn;
+
+    public static void startDB () throws SQLException, ClassNotFoundException {
+        conn = connect();
+    }
+
+    private static Connection connect() throws ClassNotFoundException, SQLException {
+        Class.forName("org.mariadb.jdbc.Driver");
+        String password = "";
+        String user = "silverest";
+        String dbLocation = "jdbc:mysql://0.0.0.0:3306/MEDIATHEQUE";
+        Connection conn = DriverManager.getConnection(dbLocation, user, password);
+        if (conn != null)
+            System.out.println(true);
+        return conn;
+    }
+
     private static List<IMedia> runQuery(String Query){
-        try(Statement query = DatabaseConn.getConn().createStatement()){
+        try(Statement query = conn.createStatement()){
             try(ResultSet set = query.executeQuery(Query)){
                 List<IMedia> results = new LinkedList<>();
                 while(set.next()){
